@@ -25,6 +25,7 @@
 # get version prefix from VERSION file
 if [ -z "$CARPENTER_VERSION_VERSIONFILE" ]; then
 	echo "##vso[task.logissue type=warning;]Carpenter.Version.VersionFile (CARPENTER_VERSION_VERSIONFILE) variable has not been defined. Using version 0.1.0."
+	echo "##vso[task.complete result=SucceededWithIssues;]Carpenter.Version.VersionFile (CARPENTER_VERSION_VERSIONFILE) variable has not been defined."
 	VERSIONPREFIX=0.1.0
 	VERSIONMAJOR=0
 	VERSIONMINOR=1
