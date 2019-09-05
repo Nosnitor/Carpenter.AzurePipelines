@@ -24,12 +24,11 @@
 #
 # Performs preparation for a build.
 #
-variables:
-  vmImage: 'ubuntu-latest'
 parameters:
   solutionName: solution
   sonarQubeProjectKey: ''
   versionFile: ''
+  vmImage: 'ubuntu-latest'
 
 jobs:
 - job: Prepare
