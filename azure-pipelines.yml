@@ -36,6 +36,7 @@ variables:
     # The location of the VERSION file used to version this build.
     "Carpenter.Version.VersionFile": VERSION
 
+
 # Default name for the build, prior to build versioning
 name: $(Build.BuildId)
 
@@ -48,4 +49,4 @@ stages:
     solutionName: '$(Carpenter.SolutionName)'
     sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
     versionFile: '$(Carpenter.Version.VersionFile)'
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
