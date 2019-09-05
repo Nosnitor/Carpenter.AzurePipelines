@@ -67,7 +67,7 @@ jobs:
     "Carpenter.Version.Prefix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Prefix'] ]
     "Carpenter.Version.Suffix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Suffix'] ]
     "Carpenter.Version.PackageVersion" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.PackageVersion'] ]
-    "Carpenter.Version.Increment" : $[ counter(variables['Carpenter.Version.PackageVersion']) ]
+    "Carpenter.Version.Increment" : $[ counter(variables['Carpenter.Version.PackageVersion'], 1) ]
   steps:
   - bash: |
       if [ ! -z "$CARPENTER_VERSION_SUFFIX" ]; then
