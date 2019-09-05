@@ -24,7 +24,8 @@
 #
 # Performs preparation for a build.
 #
-
+variables:
+  vmImage: 'ubuntu-latest'
 parameters:
   solutionName: solution
   sonarQubeProjectKey: ''
@@ -35,7 +36,7 @@ jobs:
   displayName: Prepare for build
 
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: $(vmImage)
 
   steps:
   - bash: |
@@ -58,7 +59,7 @@ jobs:
   dependsOn: Prepare
 
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: $(vmImage)
   
   variables:
     "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
