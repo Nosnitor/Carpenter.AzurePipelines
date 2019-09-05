@@ -22,30 +22,23 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Pipeline definition for Nosnitor.Carpenter.AzurePipelines.
+# Performs default build and deploys development bits/environment.
 #
 
-variables:
-
-    # The name of the solution, as used in the Visual Studio .sln file.
-    "Carpenter.SolutionName": '$(Build.DefinitionName)'
-
-    # The Project Key for this project in SonarQube.
-    "Carpenter.SonarQube.ProjectKey": '$(Carpenter.SolutionName)'
-
-    # The location of the VERSION file used to version this build.
-    "Carpenter.Version.VersionFile": VERSION
-
-# Default name for the build, prior to build versioning
-name: $(Build.BuildId)
-
-trigger:
-- master
+parameters:
+  solutionName: solution
+  sonarQubeProjectKey: ''
+  versionFile: ''
+  vmImage: 'ubuntu-latest'
 
 stages:
-- template: templates/stage/carpenter-default.yml
-  parameters:
-    solutionName: '$(Carpenter.SolutionName)'
-    sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
-    versionFile: '$(Carpenter.Version.VersionFile)'
-    vmImage: 'ubuntu-latest'
+- stage: development
+  displayName: "Development"
+
+  jobs:
+  - template: ../job/prepare-build.yml
+    parameters:
+      solutionName: '${{ parameters.solutionName }}'
+      sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+      versionFile: '${{ parameters.versionFile }}'
+      vmImage: '${{ parameters.vmImage }}'
