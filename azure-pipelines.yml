@@ -26,8 +26,12 @@
 #
 
 variables:
-    #"Carpenter.SolutionName": '$(Build.DefinitionName)'
-    #"Carpenter.SonarQube.ProjectKey": '$(Carpenter.SolutionName)'
+
+    # The name of the solution, as used in the Visual Studio .sln file.
+    "Carpenter.SolutionName": '$(Build.DefinitionName)'
+
+    # The Project Key for this project in SonarQube.
+    "Carpenter.SonarQube.ProjectKey": '$(Carpenter.SolutionName)'
 
     # The location of the VERSION file used to version this build.
     "Carpenter.Version.VersionFile": VERSION
@@ -41,6 +45,6 @@ trigger:
 jobs:
 - template: templates/prepare-build.yml
   parameters:
-    #solutionName: '$(Carpenter.SolutionName)'
-    #sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
+    solutionName: '$(Carpenter.SolutionName)'
+    sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
     versionFile: '$(Carpenter.Version.VersionFile)'
