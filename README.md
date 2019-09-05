@@ -1,4 +1,4 @@
-[Nosnitor Corporation](https://www.rcsit.com)
+[Nosnitor](https://rcsit.com)
 
 # Introduction
 
