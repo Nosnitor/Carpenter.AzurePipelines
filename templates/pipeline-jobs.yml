@@ -1,0 +1,111 @@
+#    Carpenter.AzurePipelines - Common YAML templates and scripts for Azure Pipelines definitions.
+#    Copyright © 2015-2019 Nosnitor Corporation, All rights reserved.
+#
+#    Permission is hereby granted, free of charge, to any person obtaining a copy
+#    of this software and associated documentation files (the "Software"), to deal
+#    in the Software without restriction, including without limitation the rights
+#    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#    copies of the Software, and to permit persons to whom the Software is
+#    furnished to do so, subject to the following conditions:
+#
+#    The above copyright notice and this permission notice shall be included in all
+#    copies or substantial portions of the Software.
+#
+#    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#    SOFTWARE.
+
+# SPDX-License-Identifier: MIT
+
+#
+# Pipeline definition for Azure Pipelines.
+#
+
+parameters:
+  solutionName: solution
+  sonarQubeProjectKey: ''
+  versionFile: ''
+
+jobs:
+- job: Prepare
+  displayName: Prepare for build
+
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - bash: |
+      echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]${{ parameters.solutionName }}"
+      echo "##vso[task.setvariable variable=Carpenter.SonarQube.ProjectKey;isOutput=true]${{ parameters.sonarQubeProjectKey }}"
+      echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]${{ parameters.versionFile }}"
+    displayName: Configure pipeline variables
+    name: configureVariables
+  
+  - task: Bash@3
+    displayName: Determine build number
+    name: determineBuildNumber
+    inputs:
+      targetType: 'filePath'
+      filePath: '$(Build.SourcesDirectory)/build/Carpenter.AzurePipelines/scripts/get-buildnumber.sh'
+
+- job: Prebuild
+  displayName: Finalize build preparation
+
+  dependsOn: Prepare
+
+  pool:
+    vmImage: 'ubuntu-latest'
+  
+  variables:
+    "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
+    "Carpenter.Version.Minor" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Minor'] ]
+    "Carpenter.Version.Patch" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Patch'] ]
+    "Carpenter.Version.Prefix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Prefix'] ]
+    "Carpenter.Version.Suffix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Suffix'] ]
+    "Carpenter.Version.PackageVersion" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.PackageVersion'] ]
+    "Carpenter.Version.Increment" : $[ counter(variables['Carpenter.Version.PackageVersion']) ]
+  steps:
+  - bash: |
+      if [ ! -z "$CARPENTER_VERSION_SUFFIX" ]; then
+        VERSIONSUFFIX="$CARPENTER_VERSION_SUFFIX.$CARPENTER_VERSION_INCREMENT"
+        VERSIONSUFFIXSTRING="-$VERSIONSUFFIX"
+      fi
+      VERSIONSTRING="$CARPENTER_VERSION_MAJOR.$CARPENTER_VERSION_MINOR.$CARPENTER_VERSION_PATCH$VERSIONSUFFIXSTRING"
+      echo "##vso[task.setvariable variable=Carpenter.Version.VersionSuffix;isOutput=true]$VERSIONSUFFIX"
+      echo "##vso[task.setvariable variable=Carpenter.Version.PackageVersion;isOutput=true]$VERSIONSTRING"
+      echo "##vso[build.updatebuildnumber]$VERSIONSTRING"
+    displayName: Finalize build number
+    name: finalizeBuildNumber
+
+
+- job: Build
+  displayName: Build test and analyze solution
+
+  dependsOn: Prebuild
+
+  variables:
+    "Carpenter.SolutionName": $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SolutionName'] ]
+    "Carpenter.SonarQube.ProjectKey": $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarQube.ProjectKey'] ]
+    "Carpenter.Version.VersionFile" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Version.VersionFile'] ]
+    "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
+    "Carpenter.Version.Minor" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Minor'] ]
+    "Carpenter.Version.Patch" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Patch'] ]
+    "Carpenter.Version.Prefix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Prefix'] ]
+    "Carpenter.Version.Suffix" : $[ dependencies.Prebuild.outputs['finalizeBuildNumber.Carpenter.Version.Suffix'] ]
+    "Carpenter.Version.PackageVersion" : $[ dependencies.Prebuild.outputs['finalizeBuildNumber.Carpenter.Version.PackageVersion'] ]
+
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - template: display-variables-build-step.yml
+  - template: display-variables-pipeline-step.yml
+  - template: display-variables-system-step.yml
+  - template: display-variables-agent-step.yml
+  # TODO: Only display when job is deployment job
+  - template: display-variables-deployment-step.yml
+  - template: display-variables-carpenter-step.yml
