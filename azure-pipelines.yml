@@ -22,13 +22,13 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Pipeline definition for Azure Pipelines.
+# Pipeline definition for Nosnitor.Carpenter.AzurePipelines.
 #
 
 variables:
     "Carpenter.SolutionName": '$(Build.DefinitionName)'
     "Carpenter.SonarQube.ProjectKey": '$(Carpenter.SolutionName)'
-    "Carpenter.Version.VersionFile": VERSION
+    # "Carpenter.Version.VersionFile": VERSION
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
@@ -36,7 +36,7 @@ trigger:
 - master
 
 jobs:
-- template: templates/pipeline-jobs.yml
+- template: templates/prepare-build.yml
   parameters:
     solutionName: '$(Carpenter.SolutionName)'
     sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
