@@ -37,7 +37,7 @@ variables:
     "Carpenter.Version.VersionFile": VERSION
 
 # Default name for the build, prior to build versioning
-name: $(Date:yyyyMMdd)$(Rev:.r)
+name: $(Build.BuildId)
 
 trigger:
 - master
