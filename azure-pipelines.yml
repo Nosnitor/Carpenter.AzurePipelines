@@ -26,7 +26,7 @@
 #
 
 variables:
-    "Carpenter.SolutionName": $(Build.DefinitionName)
+    "Carpenter.SolutionName": '$(Build.DefinitionName)'
     "Carpenter.SonarQube.ProjectKey": '$(Carpenter.SolutionName)'
     "Carpenter.Version.VersionFile": VERSION
 
