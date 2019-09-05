@@ -35,7 +35,7 @@ jobs:
   displayName: Prepare for build
 
   pool:
-    vmImage: $(vmImage)
+    vmImage: ${{ parameters.vmImage }}
 
   steps:
   - bash: |
@@ -58,7 +58,7 @@ jobs:
   dependsOn: Prepare
 
   pool:
-    vmImage: $(vmImage)
+    vmImage: ${{ parameters.vmImage }}
   
   variables:
     "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
