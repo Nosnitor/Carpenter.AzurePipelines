@@ -51,7 +51,8 @@ jobs:
 ### Script and supporting files integration
 
 The scripts and supporting files used by the templates can be integrated with the
-project using a git submodule.
+project using a git submodule. The submodule should be located at
+```[projectRoot]/build/Carpenter.AzurePipelines```.
 
 ```
 pwd
