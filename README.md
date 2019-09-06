@@ -10,7 +10,7 @@ Carpenter.AzurePipelines provides the following functionality:
 
 ### Build Versioning
 
-By including a VERSION file in the source of the project, consistent versioning is applied to the
+By including a `VERSION` file in the source of the project, consistent versioning is applied to the
 build and any binaries or packages generated as output.
 
 | Build type | Version example | Description
@@ -22,12 +22,13 @@ build and any binaries or packages generated as output.
 
 ## Integrating Carpenter.AzurePipelines
 
-Due to the way that pipeline templates are sourced by Azure Pipelines, the templates and 
+Due to the way that pipeline templates are evaluated by Azure Pipelines, the templates and 
 supporting files are accessed using different methods.
 
 ### Template integration
 
-Azure DevOps Pipelines templates are integrated into your build process by using the resources specification.
+Azure DevOps Pipelines templates are integrated into the build process by using the
+`resources` specification.
 
 ```YAML
 # Repo: Your projects repository
@@ -40,10 +41,29 @@ resources:
     endpoint: Nosnitor
 
 jobs:
-- template: templates/pipeline-jobs.yml@carpenterAzurePipelines
+- template: templates/stage/carpenter-default.yml@carpenterAzurePipelines
   parameters:
-    solutionName: '$(Carpenter.SolutionName)'
-    sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
-    versionFile: '$(Carpenter.Version.VersionFile)'
+    solutionName: 'Acme.MySolution'
+    sonarQubeProjectKey: 'MySolution'
+    versionFile: 'VERSION'
+```
 
+### Script and supporting files integration
+
+The scripts and supporting files used by the templates can be integrated with the
+project using a git submodule.
+
+```
+pwd
+# /the/project/directory
+
+mkdir build
+cd build
+git submodule add -b master https://github.com/Nosnitor/Carpenter.AzurePipelines
+cd ..
+```
+
+You can update the submodule by:
+```
+git submodule update --remote
 ```
