@@ -2,7 +2,21 @@
 
 # Introduction
 
-The Carpenter.AzurePipelines project provides common YAML templates and scripts for Azure Pipelines definitions.
+The Carpenter.AzurePipelines project provides common YAML templates and scripts for Azure
+Pipelines definitions.
+
+## Features
+Carpenter.AzurePipelines provides the following functionality:
+
+### Build Versioning
+
+By including a VERSION file in the source of the project, consistent versioning is applied to the
+build and any binaries or packages generated as output.
+
+| Build type | Version example | Description
+|:--|:--|:--|
+| Continuous Integration | 1.2.3-CI.20190906.42 | The 42nd CI build on September 6, 2019 for version 1.2.3.
+
 
 # Usage
 
