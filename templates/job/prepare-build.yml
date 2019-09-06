@@ -51,9 +51,9 @@ jobs:
   pool:
     vmImage: ${{ parameters.vmImage }}
 
-  - template: ../variable/carpenter-variables.yml
   
   variables:
+  - template: ../variable/carpenter-variables.yml
     "Carpenter.Version.Increment" : $[ counter(variables['Carpenter.Version.PackageVersion'], 1) ]
 
   steps:
