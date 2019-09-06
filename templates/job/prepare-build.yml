@@ -45,6 +45,11 @@ jobs:
     displayName: Configure pipeline variables
     name: configureVariables
   
+  - script: |
+      echo %BUILD_SOURCESDIRECTORY%/build/Carpenter.AzurePipelines/scripts
+      dir %BUILD_SOURCESDIRECTORY%/build/Carpenter.AzurePipelines/scripts
+
+
   - task: Bash@3
     displayName: Determine build number
     name: determineBuildNumber
