@@ -28,6 +28,7 @@
 #    https://dev.azure.com/nosnitor/Carpenter/_workitems/edit/1055/
 #    https://github.com/microsoft/azure-pipelines-yaml/issues/321
 
+steps:
 - script: |
     pushd %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines
     rd /s /q scripts
