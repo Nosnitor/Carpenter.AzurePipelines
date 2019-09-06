@@ -50,7 +50,6 @@ jobs:
 
   pool:
     vmImage: ${{ parameters.vmImage }}
-
   
   variables:
   - template: ../variable/carpenter-variables.yml
