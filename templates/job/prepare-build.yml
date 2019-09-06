@@ -40,13 +40,7 @@ jobs:
   steps:
   - template: ../step/recreate-carpenter-symlinks.yml
   - template: ../step/configure-pipeline-variables.yml
-    
-  - task: Bash@3
-    displayName: Determine build number
-    name: determineBuildNumber
-    inputs:
-      targetType: 'filePath'
-      filePath: '$(Build.SourcesDirectory)/build/Carpenter.AzurePipelines/scripts/get-buildnumber.sh'
+  - template: ../step/determine-build-number.yml
 
 - job: Prebuild
   displayName: Finalize build preparation
