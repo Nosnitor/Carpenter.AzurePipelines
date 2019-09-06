@@ -39,14 +39,8 @@ jobs:
 
   steps:
   - template: ../step/recreate-carpenter-symlinks.yml
-
-  - bash: |
-      echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]${{ parameters.solutionName }}"
-      echo "##vso[task.setvariable variable=Carpenter.SonarQube.ProjectKey;isOutput=true]${{ parameters.sonarQubeProjectKey }}"
-      echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]${{ parameters.versionFile }}"
-    displayName: Configure pipeline variables
-    name: configureVariables
-  
+  - template: ../step/configure-pipeline-variables.yml
+    
   - task: Bash@3
     displayName: Determine build number
     name: determineBuildNumber
