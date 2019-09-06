@@ -46,9 +46,12 @@ jobs:
     name: configureVariables
   
   - script: |
-      echo %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines\scripts
+      pushd %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines
+      rd /s /q scripts
+      mklink /j scripts ..\..\scripts
+      popd
       dir %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines\scripts\*.*
-
+    displayName: Verify symlink exists
 
   - task: Bash@3
     displayName: Determine build number
