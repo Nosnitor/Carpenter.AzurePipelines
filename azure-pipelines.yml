@@ -49,4 +49,4 @@ stages:
     solutionName: '$(Carpenter.SolutionName)'
     sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
     versionFile: '$(Carpenter.Version.VersionFile)'
-    vmImage: 'windows-latest'
+    vmImage: 'ubuntu-latest'
