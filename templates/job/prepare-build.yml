@@ -47,7 +47,7 @@ jobs:
   
   - script: |
       echo %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines\scripts
-      dir %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines\scripts
+      dir %BUILD_SOURCESDIRECTORY%\build\Carpenter.AzurePipelines\scripts\*.*
 
 
   - task: Bash@3
