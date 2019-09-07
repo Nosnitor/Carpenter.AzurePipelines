@@ -46,12 +46,14 @@ resources:
     name: Nosnitor/Carpenter.AzurePipelines
     endpoint: Nosnitor
 
-jobs:
+
+stages:
 - template: templates/stage/carpenter-default.yml@carpenterAzurePipelines
   parameters:
     solutionName: 'Acme.MySolution'
     sonarQubeProjectKey: 'MySolution'
     versionFile: 'VERSION'
+    vmImage: ubuntu-latest
 ```
 
 ### Script and supporting files integration
