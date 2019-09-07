@@ -19,6 +19,10 @@ build and any binaries or packages generated as output.
 |:--|:--|:--|
 | Continuous Integration | 1.2.3-CI.20190906.42 | The 42nd CI build on September 6, 2019 for version 1.2.3.
 
+### Display Build Variables
+
+By referencing the ```display-variables.yml``` template, Azure DevOps variables can be
+displayed as part of a job. Carpenter specific variables are also displayed.
 
 # Usage
 
