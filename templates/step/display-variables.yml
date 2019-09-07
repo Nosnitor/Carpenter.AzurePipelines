@@ -22,13 +22,13 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Displays deployment variables.
+# Displays variables.
 #
 
 steps:
-- bash: |
-    echo "Environment.Name                       : $ENVIRONMENT_NAME"
-    echo "Environment.Id                         : $ENVIRONMENT_ID"
-    echo "Environment.ResourceName               : $ENVIRONMENT_RESOURCENAME"
-    echo "Environment.ResourceId                 : $ENVIRONMENT_RESOURCEID"
-  displayName: Display deployment variables
+- template: display-variables-build.yml
+- template: display-variables-pipeline.yml
+- template: display-variables-system.yml
+- template: display-variables-agent.yml
+- template: display-variables-deployment.yml
+- template: display-variables-carpenter.yml

@@ -22,41 +22,14 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Performs preparation for a build.
+# Displays deployment variables.
 #
-parameters:
-  solutionName: solution
-  sonarQubeProjectKey: ''
-  versionFile: ''
-  vmImage: 'ubuntu-latest'
 
-jobs:
-- job: Prepare
-  displayName: Prepare for build
-
-  pool:
-    vmImage: ${{ parameters.vmImage }}
-
-  steps:
-  - template: ../step/display-variables.yml
-  - template: ../step/recreate-carpenter-symlinks.yml
-  - template: ../step/configure-pipeline-variables.yml
-  - template: ../step/determine-build-number.yml
-
-
-- job: Prebuild
-  displayName: Finalize build preparation
-
-  dependsOn: Prepare
-
-  pool:
-    vmImage: ${{ parameters.vmImage }}
-  
-  variables:
-  - template: ../variable/carpenter-variables.yml
-  - name: "Carpenter.Version.Increment"
-    value: $[ counter(variables['Carpenter.Version.PackageVersion'], 1) ]
-
-  steps:
-  - template: ../step/display-variables.yml
-  - template: ../step/finalize-build-number.yml
+steps:
+- bash: |
+    echo "Environment.Name                       : $ENVIRONMENT_NAME"
+    echo "Environment.Id                         : $ENVIRONMENT_ID"
+    echo "Environment.ResourceName               : $ENVIRONMENT_RESOURCENAME"
+    echo "Environment.ResourceId                 : $ENVIRONMENT_RESOURCEID"
+  displayName: Display deployment variables
+  condition: ne(variables['Environment.Id'], '')
