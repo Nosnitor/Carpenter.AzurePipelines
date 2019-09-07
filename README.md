@@ -66,7 +66,7 @@ git submodule add -b master https://github.com/Nosnitor/Carpenter.AzurePipelines
 cd ..
 ```
 
-You can update the submodule by:
+You can update the submodule using:
 ```
 git submodule update --remote
 ```
