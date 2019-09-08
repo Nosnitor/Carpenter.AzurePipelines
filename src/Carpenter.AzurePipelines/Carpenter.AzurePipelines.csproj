@@ -7,8 +7,4 @@
     <VersionSuffix>dev</VersionSuffix>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Carpenter" Version="0.4.0-dev.20190908T071003" />
-  </ItemGroup>
-
 </Project>
