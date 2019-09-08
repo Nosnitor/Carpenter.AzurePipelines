@@ -41,7 +41,7 @@ steps:
     if [ '${{ parameters.vmImage }}' == '' ]; then
       echo "configure-pipeline-variables.yml: error: The vmImage parameter is required for this template."
       echo "##vso[task.logissue type=error; sourcepath=configure-pipeline-variables.yml;]The vmImage parameter is required for this template."
-	  echo "##vso[task.complete result=Failed;]The vmImage parameter is required for this template."
+      echo "##vso[task.complete result=Failed;]The vmImage parameter is required for this template."
     else
       if [ '${{ parameters.vmImage }}' != '$CARPENTER_BUILD_VMIMAGE' ]; then
         echo "configure-pipeline-variables.yml: info: Updating Carpenter.Build.VMImage, Value=${{ parameters.vmImage }}"
