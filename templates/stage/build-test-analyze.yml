@@ -39,7 +39,7 @@ stages:
   displayName: "Build, Test and Analyze"
 
   jobs:
-  - template: ../job/prepare-build.yml
+  - template: ../job/prebuild.yml
     parameters:
       solutionName: '${{ parameters.solutionName }}'
       solutionPath: '${{ parameters.solutionPath }}'
