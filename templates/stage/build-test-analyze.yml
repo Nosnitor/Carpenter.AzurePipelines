@@ -34,7 +34,7 @@ parameters:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: build-test-analyze
+- stage: Build_Test_Analyze
   displayName: "Build, Test and Analyze"
 
   jobs:
