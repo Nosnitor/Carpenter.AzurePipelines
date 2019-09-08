@@ -26,9 +26,19 @@
 #
 # Configures the pipeline variables
 #
+
+parameters:
+  solutionName: ''
+  solutionPath: ''
+  sonarQubeProjectKey: ''
+  versionFile: ''
+  vmImage: ''
+
 steps:
 - bash: |
+    echo "##vso[task.setvariable variable=Carpenter.Build.VMImage;isOutput=true]${{ parameters.vmImage }}"
     echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]${{ parameters.solutionName }}"
+    echo "##vso[task.setvariable variable=Carpenter.SolutionPath;isOutput=true]${{ parameters.solutionPath }}"
     echo "##vso[task.setvariable variable=Carpenter.SonarQube.ProjectKey;isOutput=true]${{ parameters.sonarQubeProjectKey }}"
     echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]${{ parameters.versionFile }}"
   displayName: Configure pipeline variables

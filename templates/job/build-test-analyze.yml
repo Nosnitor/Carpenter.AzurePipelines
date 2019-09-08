@@ -24,18 +24,19 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Performs preparation for a build.
+# Builds, tests and analyzes the solution.
 #
 parameters:
-  solutionName: solution
+  buildConfiguration: Release
+  solutionName: ''
   solutionPath: ''
   sonarQubeProjectKey: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: Prepare
-  displayName: Prepare for build
+- job: Build
+  displayName: 'Build, test, and analyze'
 
   pool:
     vmImage: ${{ parameters.vmImage }}
@@ -43,14 +44,35 @@ jobs:
   steps:
   - template: ../step/display-variables.yml
 
-  - template: ../step/recreate-carpenter-symlinks.yml
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core sdk'
+    inputs:
+      packageType: sdk
+      version: 2.x
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-  - template: ../step/configure-pipeline-variables.yml
-    parameters:
-      solutionName: '${{ parameters.solutionName }}'
-      solutionPath: '${{ parameters.solutionPath }}'
-      sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
-      versionFile: '${{ parameters.versionFile }}'
-      vmImage: '${{ parameters.vmImage }}'
+  - task: DotNetCoreCLI@2
+    displayName: 'Perform dotnet build'
+    inputs:
+      command: build
+      projects: '${{ parameters.solutionPath }}'
+      arguments: '--configuration ${{ parameters.buildConfiguration }}'
 
-  - template: ../step/determine-build-number.yml
+  - task: DotNetCoreCLI@2
+    displayName: 'Execute unit tests'
+    inputs:
+      command: test
+      projects: '${{ parameters.solutionPath }}'
+      arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover"'
+      nobuild: true
+
+  - script: |
+      dotnet tool install -g dotnet-reportgenerator-globaltool
+      reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage "-reporttypes:Cobertura"
+    displayName: Create code coverage report
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage'
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'

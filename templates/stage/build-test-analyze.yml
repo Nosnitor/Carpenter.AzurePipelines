@@ -24,11 +24,12 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Performs default build and deploys development bits/environment.
+# Performs default build, then tests and analyzes the solution.
 #
 
 parameters:
-  solutionName: solution
+  solutionName: ''
+  solutionPath: ''
   sonarQubeProjectKey: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
@@ -41,6 +42,13 @@ stages:
   - template: ../job/prepare-build.yml
     parameters:
       solutionName: '${{ parameters.solutionName }}'
+      solutionPath: '${{ parameters.solutionPath }}'
       sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
       versionFile: '${{ parameters.versionFile }}'
+      vmImage: '${{ parameters.vmImage }}'
+
+  - template: ../job/build-test-analyze.yml
+    parameters:
+      solutionPath: '${{ parameters.solutionPath }}'
+      sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
       vmImage: '${{ parameters.vmImage }}'

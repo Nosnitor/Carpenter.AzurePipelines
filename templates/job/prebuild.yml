@@ -24,33 +24,28 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Performs preparation for a build.
+# Executes before the build.
 #
 parameters:
-  solutionName: solution
+  solutionName: ''
   solutionPath: ''
   sonarQubeProjectKey: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: Prepare
-  displayName: Prepare for build
+- template: ../job/prepare-build.yml
+  parameters:
+    solutionName: '${{ parameters.solutionName }}'
+    solutionPath: '${{ parameters.solutionPath }}'
+    sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+    versionFile: '${{ parameters.versionFile }}'
+    vmImage: '${{ parameters.vmImage }}'
 
-  pool:
-    vmImage: ${{ parameters.vmImage }}
-
-  steps:
-  - template: ../step/display-variables.yml
-
-  - template: ../step/recreate-carpenter-symlinks.yml
-
-  - template: ../step/configure-pipeline-variables.yml
-    parameters:
-      solutionName: '${{ parameters.solutionName }}'
-      solutionPath: '${{ parameters.solutionPath }}'
-      sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
-      versionFile: '${{ parameters.versionFile }}'
-      vmImage: '${{ parameters.vmImage }}'
-
-  - template: ../step/determine-build-number.yml
+- template: ../job/prepare-build-finalize.yml
+  parameters:
+    solutionName: '${{ parameters.solutionName }}'
+    solutionPath: '${{ parameters.solutionPath }}'
+    sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+    versionFile: '${{ parameters.versionFile }}'
+    vmImage: '${{ parameters.vmImage }}'

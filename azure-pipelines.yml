@@ -29,17 +29,24 @@
 
 variables:
 
+    # The VM Image to use for build steps.
+    "Carpenter.Build.VMImage": "ubuntu-latest"
+
     # The name of the solution, as used in the Visual Studio .sln file.
-    "Carpenter.SolutionName": '$(Build.DefinitionName)'
+    "Carpenter.SolutionName": 'Carpenter.AzurePipelines'
+
+    # The path to the solution file.
+    "Carpenter.SolutionPath": '$(Carpenter.SolutionName).sln'
 
     # The Project Key for this project in SonarQube.
-    "Carpenter.SonarQube.ProjectKey": '$(Carpenter.SolutionName)'
+    "Carpenter.SonarQube.ProjectKey": 'Nosnitor_Carpenter.AzurePipelines'
 
     # The location of the VERSION file used to version this build.
     "Carpenter.Version.VersionFile": VERSION
 
 
 # Default name for the build, prior to build versioning
+# $(Build.BuildId) is the default value used when YAML cannot be parsed
 name: $(Build.BuildId)
 
 trigger:
@@ -49,6 +56,7 @@ stages:
 - template: templates/stage/carpenter-default.yml
   parameters:
     solutionName: '$(Carpenter.SolutionName)'
+    solutionPath: '$(Carpenter.SolutionPath)'
     sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
     versionFile: '$(Carpenter.Version.VersionFile)'
-    vmImage: 'ubuntu-latest'
+    vmImage: '$(Carpenter.Build.VMImage)'
