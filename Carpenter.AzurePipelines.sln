@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpenter.AzurePipelines", "src\Carpenter.AzurePipelines\Carpenter.AzurePipelines.csproj", "{16037E6C-EE33-4152-B5CF-E26CFC3E43CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carpenter.AzurePipelines.Tests", "tests\Carpenter.AzurePipelines.Tests\Carpenter.AzurePipelines.Tests.csproj", "{13EEFB32-E282-4562-B007-06A0FC5BA9A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16037E6C-EE33-4152-B5CF-E26CFC3E43CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16037E6C-EE33-4152-B5CF-E26CFC3E43CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16037E6C-EE33-4152-B5CF-E26CFC3E43CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16037E6C-EE33-4152-B5CF-E26CFC3E43CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13EEFB32-E282-4562-B007-06A0FC5BA9A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EEFB32-E282-4562-B007-06A0FC5BA9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EEFB32-E282-4562-B007-06A0FC5BA9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EEFB32-E282-4562-B007-06A0FC5BA9A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD1E0F3B-CFB5-4102-82D6-ACF410C22B3B}
+	EndGlobalSection
+EndGlobal
