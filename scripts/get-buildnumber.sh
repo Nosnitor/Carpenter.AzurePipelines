@@ -42,8 +42,8 @@ else
 		VERSIONMINOR="${BASH_REMATCH[2]}"
 		VERSIONPATCH="${BASH_REMATCH[3]}"
 		else
-		echo "##vso[task.logissue type=error;]VERSION file should only contain the Major.Minor.Patch elements of the version number."
-		echo "##vso[task.complete result=Failed;]VERSION file should only contain the Major.Minor.Patch elements of the version number."
+		echo "##vso[task.logissue type=error;]VERSION file should contain only the Major.Minor.Patch elements of the version number (e.g. 1.2.3). Version File: $VERSIONFILEPATH"
+		echo "##vso[task.complete result=Failed;]VERSION file should contain only the Major.Minor.Patch elements of the version number."
 		fi
 	else
 		echo "##vso[task.logissue type=error;]Could not locate version file. File not found: $VERSIONFILEPATH"
