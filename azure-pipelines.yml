@@ -50,7 +50,10 @@ variables:
 name: $(Build.BuildId)
 
 trigger:
-- master
+  batch: true
+  branches:
+    include:
+    - master
 
 stages:
 - template: templates/stage/carpenter-default.yml
