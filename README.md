@@ -51,6 +51,7 @@ stages:
 - template: templates/stage/carpenter-default.yml@carpenterAzurePipelines
   parameters:
     solutionName: 'Acme.MySolution'
+    solutionPath: 'Acme.MySolution.sln' # Solution is in the same folder as azure-pipelines.yml
     sonarQubeProjectKey: 'MySolution'
     versionFile: 'VERSION'
     vmImage: ubuntu-latest
@@ -76,3 +77,15 @@ You can update the submodule using:
 ```
 git submodule update --remote
 ```
+
+## Variables
+
+The following variables are used:
+
+| Variable Name | Env Variable Name | Parameter Name | Default Value | Description |
+|:--|:--|:--|:--|:--|
+| Carpenter.Build.VMImage | CARPENTER_BUILD_VMIMAGE | vmImage | ubuntu-latest | The VM Image to use for build steps. |
+| Carpenter.SolutionName | CARPENTER_SOLUTIONNAME | solutionName | $(Build.DefinitionName) | The name of the solution. |
+| Carpenter.SolutionPath | CARPENTER_SOLUTIONPATH | solutionPath | $(Carpenter.SolutionName).sln | The path to the solution file. |
+| Carpenter.SonarQube.ProjectKey | CARPENTER_SONARQUBE_PROJECTKEY | sonarQubeProjectKey | | The SonarQube (SonarCloud) project key used by this project. |
+| Carpenter.Version.VerisonFile | CARPENTER_VERSION_VERSIONFILE | versionFile | | The VERSION file to use for project versioning. |
