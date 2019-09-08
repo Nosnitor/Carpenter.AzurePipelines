@@ -87,5 +87,7 @@ The following variables are used:
 | Carpenter.Build.VMImage | CARPENTER_BUILD_VMIMAGE | vmImage | ubuntu-latest | The VM Image to use for build steps. |
 | Carpenter.SolutionName | CARPENTER_SOLUTIONNAME | solutionName | $(Build.DefinitionName) | The name of the solution. |
 | Carpenter.SolutionPath | CARPENTER_SOLUTIONPATH | solutionPath | $(Carpenter.SolutionName).sln | The path to the solution file. |
-| Carpenter.SonarQube.ProjectKey | CARPENTER_SONARQUBE_PROJECTKEY | sonarQubeProjectKey | | The SonarQube (SonarCloud) project key used by this project. |
+| Carpenter.SonarCloud.Organization | CARPENTER_SONARCLOUD_ORGANIZATION | sonarCloudOrganization | | The SonarCloud Organization that the project is under. |
+| Carpenter.SonarCloud.ProjectKey | CARPENTER_SONARCLOUD_PROJECTKEY | sonarCloudProjectKey | | The SonarCloud project key used by the project. |
+| Carpenter.SonarCloud.ServiceConnection | CARPENTER_SONARCLOUD_SERVICECONNECTION | sonarCloudServiceConnection | | The Azure DevOps SonarCloud service connection. |
 | Carpenter.Version.VerisonFile | CARPENTER_VERSION_VERSIONFILE | versionFile | | The VERSION file to use for project versioning. |

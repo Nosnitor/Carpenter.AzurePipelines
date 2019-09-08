@@ -30,7 +30,9 @@
 parameters:
   solutionName: ''
   solutionPath: ''
-  sonarQubeProjectKey: ''
+  sonarCloudOrganization: ''
+  sonarCloudProjectKey: ''
+  sonarCloudServiceConnection: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
 
@@ -39,6 +41,8 @@ stages:
   parameters:
     solutionName: '${{ parameters.solutionName }}'
     solutionPath: '${{ parameters.solutionPath }}'
-    sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+    sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
+    sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
+    sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
     versionFile: '${{ parameters.versionFile }}'
     vmImage: '${{ parameters.vmImage }}'

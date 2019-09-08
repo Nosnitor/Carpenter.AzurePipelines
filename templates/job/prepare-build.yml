@@ -27,9 +27,11 @@
 # Performs preparation for a build.
 #
 parameters:
-  solutionName: solution
+  solutionName: ''
   solutionPath: ''
-  sonarQubeProjectKey: ''
+  sonarCloudOrganization: ''
+  sonarCloudProjectKey: ''
+  sonarCloudServiceConnection: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
 
@@ -49,7 +51,9 @@ jobs:
     parameters:
       solutionName: '${{ parameters.solutionName }}'
       solutionPath: '${{ parameters.solutionPath }}'
-      sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+      sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
+      sonarCloudProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+      sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
       versionFile: '${{ parameters.versionFile }}'
       vmImage: '${{ parameters.vmImage }}'
 

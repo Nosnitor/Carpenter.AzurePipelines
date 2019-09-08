@@ -29,7 +29,9 @@
 parameters:
   solutionName: ''
   solutionPath: ''
-  sonarQubeProjectKey: ''
+  sonarCloudOrganization: ''
+  sonarCloudProjectKey: ''
+  sonarCloudServiceConnection: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
 

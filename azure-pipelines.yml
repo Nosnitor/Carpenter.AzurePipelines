@@ -38,8 +38,14 @@ variables:
     # The path to the solution file.
     "Carpenter.SolutionPath": '$(Carpenter.SolutionName).sln'
 
-    # The Project Key for this project in SonarQube.
-    "Carpenter.SonarQube.ProjectKey": 'Nosnitor_Carpenter.AzurePipelines'
+    # The Organization this project is under in SonarCloud.
+    "Carpenter.SonarCloud.Organization": 'nosnitor'
+
+    # The Project Key for this project in SonarCloud.
+    "Carpenter.SonarCloud.ProjectKey": 'Nosnitor_Carpenter.AzurePipelines'
+
+    # The name of the Azure DevOps service connection.
+    "Carpenter.SonarCloud.ServiceConnection": 'SonarCloudAnalysis1'
 
     # The location of the VERSION file used to version this build.
     "Carpenter.Version.VersionFile": VERSION
@@ -60,6 +66,8 @@ stages:
   parameters:
     solutionName: '$(Carpenter.SolutionName)'
     solutionPath: '$(Carpenter.SolutionPath)'
-    sonarQubeProjectKey: '$(Carpenter.SonarQube.ProjectKey)'
+    sonarCloudOrganization: '$(Carpenter.SonarCloud.Organization)'
+    sonarCloudProjectKey: '$(Carpenter.SonarCloud.ProjectKey)'
+    sonarCloudServiceConnection: '$(Carpenter.SonarCloud.ServiceConnection)'
     versionFile: '$(Carpenter.Version.VersionFile)'
     vmImage: '$(Carpenter.Build.VMImage)'

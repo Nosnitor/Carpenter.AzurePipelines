@@ -26,10 +26,13 @@
 #
 # Executes before the build.
 #
+
 parameters:
   solutionName: ''
   solutionPath: ''
-  sonarQubeProjectKey: ''
+  sonarCloudOrganization: ''
+  sonarCloudProjectKey: ''
+  sonarCloudServiceConnection: ''
   versionFile: ''
   vmImage: 'ubuntu-latest'
 
@@ -38,7 +41,9 @@ jobs:
   parameters:
     solutionName: '${{ parameters.solutionName }}'
     solutionPath: '${{ parameters.solutionPath }}'
-    sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+    sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
+    sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
+    sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
     versionFile: '${{ parameters.versionFile }}'
     vmImage: '${{ parameters.vmImage }}'
 
@@ -46,6 +51,8 @@ jobs:
   parameters:
     solutionName: '${{ parameters.solutionName }}'
     solutionPath: '${{ parameters.solutionPath }}'
-    sonarQubeProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+    sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
+    sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
+    sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
     versionFile: '${{ parameters.versionFile }}'
     vmImage: '${{ parameters.vmImage }}'

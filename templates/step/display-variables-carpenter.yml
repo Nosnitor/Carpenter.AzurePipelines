@@ -30,7 +30,8 @@
 steps:
 - bash: |
     echo "Carpenter.SolutionName                 : $CARPENTER_SOLUTIONNAME"
-    echo "Carpenter.SonarQube.ProjectKey         : $CARPENTER_SONARQUBE_PROJECTKEY"
+    echo "Carpenter.SonarCloud.Organization      : $CARPENTER_SONARCLOUD_ORGANIZATION"
+    echo "Carpenter.SonarCloud.ProjectKey        : $CARPENTER_SONARCLOUD_PROJECTKEY"
     echo "Carpenter.Version.VersionFile          : $CARPENTER_VERSION_VERSIONFILE"
     echo "Carpenter.Version.Major                : $CARPENTER_VERSION_MAJOR"
     echo "Carpenter.Version.Minor                : $CARPENTER_VERSION_MINOR"
