@@ -27,11 +27,32 @@
 using Shouldly;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Carpenter.AzurePipelines.PipelineYamlTests
 {
+    public class YamlFilesDataAttribute : DataAttribute
+    {
+
+        public override IEnumerable<object[]> GetData(MethodInfo testMethod)
+        {
+            var data = new List<object[]> { };
+            var curDir = Directory.GetCurrentDirectory();
+            var files = Directory.GetFiles(curDir, "*.yml", SearchOption.AllDirectories);
+            var separator = Path.DirectorySeparatorChar;
+            foreach (var file in files)
+            {
+                data.Add(new object[] { file.Replace($"{curDir}{separator}", "") });
+
+            }
+            return data;
+        }
+    }
+
+
     /// <summary>
     /// Validates the Copyright/License header in YAML template files.
     /// </summary>
@@ -63,18 +84,6 @@ namespace Carpenter.AzurePipelines.PipelineYamlTests
 # SPDX-License-Identifier: MIT
 
 ";
-        public static IEnumerable<object[]> YamlFileData()
-        {
-            var data = new List<object[]> { };
-            var curDir = Directory.GetCurrentDirectory();
-            var files = Directory.GetFiles(curDir, "*.yml", SearchOption.AllDirectories);
-            foreach (var file in files)
-            {
-                data.Add(new object[] { file.Replace($"{curDir}\\", "") });
-                
-            }
-            return data;
-        }
 
         /// <summary>
         /// Validates yml files contain copyright/license header.
@@ -84,7 +93,7 @@ namespace Carpenter.AzurePipelines.PipelineYamlTests
         /// </remarks>
         /// <param name="fileName">The files to validate.</param>
         [Theory]
-        [MemberData(nameof(YamlFileData))]
+        [YamlFilesData]
         public void ShouldBeValid(string fileName)
         {
             var fileText = File.ReadAllText(fileName);
