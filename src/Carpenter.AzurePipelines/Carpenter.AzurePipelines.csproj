@@ -7,8 +7,12 @@
     <VersionSuffix>dev</VersionSuffix>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\..\templates\**" />
-    <Content Include="..\..\scripts\**" />
+    <Content Include="..\..\templates\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\scripts\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

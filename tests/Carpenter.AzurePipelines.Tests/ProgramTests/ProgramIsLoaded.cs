@@ -27,7 +27,6 @@
 using Nosnitor.Carpenter.AzurePipelines;
 using Shouldly;
 using Xunit;
-using Xunit.Categories;
 
 [assembly: AssemblyTrait("Category", "UnitTest")]
 

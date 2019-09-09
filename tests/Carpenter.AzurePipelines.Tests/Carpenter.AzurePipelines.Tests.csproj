@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Nosnitor.Carpenter.AzurePipelines.Tests</RootNamespace>
+    <RootNamespace>Carpenter.AzurePipelines.Tests</RootNamespace>
 
     <AssemblyName>Nosnitor.Carpenter.AzurePipelines.Tests</AssemblyName>
   </PropertyGroup>
