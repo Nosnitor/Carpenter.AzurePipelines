@@ -65,8 +65,6 @@ jobs:
       extraProperties: |
         sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/Carpenter.AzurePipelines.Tests/coverage.opencover.xml
         sonar.sources=$(Build.SourcesDirectory)/templates,$(Build.SourcesDirectory)/scripts
-        sonar.exclusions=**/tests/**
-        sonar.tests=$(Build.SourcesDirectory)/tests
         sonar.test.exclusions=**/coverage.*.xml
 
   - task: DotNetCoreCLI@2
