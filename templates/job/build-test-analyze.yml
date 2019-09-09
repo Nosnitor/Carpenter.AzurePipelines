@@ -66,6 +66,7 @@ jobs:
         sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/Carpenter.AzurePipelines.Tests/coverage.opencover.xml
         sonar.sources=$(Build.SourcesDirectory)/templates,$(Build.SourcesDirectory)/scripts
         sonar.test.exclusions=**/coverage.*.xml
+        sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
   - task: DotNetCoreCLI@2
     displayName: 'Perform dotnet build'
