@@ -38,6 +38,7 @@ parameters:
 
 steps:
 - bash: |
+    # vmImage
     if [ "${{ parameters.vmImage }}" == "" ]; then
       echo "configure-pipeline-variables.yml: error: The vmImage parameter is required for this template."
       echo "##vso[task.logissue type=error; sourcepath=configure-pipeline-variables.yml;]The vmImage parameter is required for this template."
@@ -48,6 +49,8 @@ steps:
       fi
     fi
     echo "##vso[task.setvariable variable=Carpenter.Build.VMImage;isOutput=true]${{ parameters.vmImage }}"
+   
+    # solutionName
     if [ "${{ parameters.solutionName }}" == "" ]; then
       if [ "$BUILD_DEFINITIONNAME" == "" ]; then
         echo "##vso[task.logissue type=error; sourcepath=configure-pipeline-variables.yml;]SolutionName and Build Definition Name cannot both be empty."
@@ -56,13 +59,24 @@ steps:
         CURRENTSOLUTIONNAME=$BUILD_DEFINITIONNAME
       fi
     else
-        CURRENTSOLUTIONNAME=${{ parameters.solutionName }}
+      CURRENTSOLUTIONNAME=${{ parameters.solutionName }}
     fi
     if [ "$CURRENTSOLUTIONNAME" != "$CARPENTER_SOLUTIONNAME" ]; then
         echo "configure-pipeline-variables.yml: info: Updating Carpenter.SolutionName, Value=$CARPENTER_SOLUTIONNAME, NewValue=$CURRENTSOLUTIONNAME"
     fi
     echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]$CURRENTSOLUTIONNAME"
-    echo "##vso[task.setvariable variable=Carpenter.SolutionPath;isOutput=true]${{ parameters.solutionPath }}"
+
+    # solutionPath
+    if [ "${{ parameters.solutionPath }}" == "" ]; then
+      CURRENTSOLUTIONPATH=${CURRENTSOLUTIONNAME}.sln
+    else
+      CURRENTSOLUTIONPATH=${{ parameters.solutionPath }}
+    fi
+    if [ "$CURRENTSOLUTIONPATH" != "$CARPENTER_SOLUTIONPATH" ]; then
+        echo "configure-pipeline-variables.yml: info: Updating Carpenter.SolutionPath, Value=$CARPENTER_SOLUTIONPATH, NewValue=$CURRENTSOLUTIONPATH"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]$CURRENTSOLUTIONPATH"
+
     echo "##vso[task.setvariable variable=Carpenter.SonarQube.ProjectKey;isOutput=true]${{ parameters.sonarQubeProjectKey }}"
     echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]${{ parameters.versionFile }}"
   displayName: Configure pipeline variables
