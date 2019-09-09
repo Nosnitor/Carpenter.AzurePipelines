@@ -54,7 +54,7 @@ namespace Carpenter.AzurePipelines.BashScriptTests
 
 
     /// <summary>
-    /// Validates the Copyright/License header in YAML template files.
+    /// Validates the Copyright/License header in bash shell files.
     /// </summary>
     public class CopyrightLicenseHeader
     {
@@ -87,10 +87,10 @@ namespace Carpenter.AzurePipelines.BashScriptTests
 ";
 
         /// <summary>
-        /// Validates yml files contain copyright/license header.
+        /// Validates sh files contain copyright/license header.
         /// </summary>
         /// <remarks>
-        /// This test will fail if no yml files are present in output.
+        /// This test will fail if no sh files are present in output.
         /// </remarks>
         /// <param name="fileName">The files to validate.</param>
         [Theory]
