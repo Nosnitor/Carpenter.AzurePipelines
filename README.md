@@ -28,9 +28,6 @@ displayed as part of a job. Carpenter specific variables are also displayed.
 
 ## Integrating Carpenter.AzurePipelines
 
-Due to the way that pipeline templates are evaluated by Azure Pipelines, the templates and 
-supporting files are accessed using different methods.
-
 ### Template integration
 
 Azure DevOps Pipelines templates are integrated into the build process by using the
@@ -55,27 +52,6 @@ stages:
     sonarQubeProjectKey: 'MySolution'
     versionFile: 'VERSION'
     vmImage: ubuntu-latest
-```
-
-### Script and supporting files integration
-
-The scripts and supporting files used by the templates can be integrated with the
-project using a git submodule. The submodule should be located at
-```[projectRoot]/build/Carpenter.AzurePipelines```.
-
-```
-pwd
-# /the/project/directory
-
-mkdir build
-cd build
-git submodule add -b master https://github.com/Nosnitor/Carpenter.AzurePipelines
-cd ..
-```
-
-You can update the submodule using:
-```
-git submodule update --remote
 ```
 
 ## Variables

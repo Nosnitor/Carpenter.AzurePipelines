@@ -9,7 +9,6 @@
   <ItemGroup>
     <Content Include="..\..\azure-pipelines.yml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\templates\**" LinkBase="templates" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\..\scripts\**" LinkBase="scripts" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
