@@ -136,7 +136,7 @@ steps:
     # verisonFile
     CURRENTVERSIONFILE=${{ parameters.versionFile }}
     if [ "$CURRENTVERSIONFILE" == "" ]; then
-      if [[ -f "$BUILD_SOURCESDIRECTORY/VERSION" ]]
+      if [[ -f "$BUILD_SOURCESDIRECTORY/VERSION" ]]; then
         CURRENTVERSIONFILE=$BUILD_SOURCESDIRECTORY/VERSION
       fi
     fi
