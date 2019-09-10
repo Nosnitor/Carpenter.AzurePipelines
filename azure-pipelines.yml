@@ -77,5 +77,5 @@ stages:
     sonarCloudOrganization: '$(Carpenter.SonarCloud.Organization)'
     sonarCloudProjectKey: '$(Carpenter.SonarCloud.ProjectKey)'
     sonarCloudServiceConnection: '$(Carpenter.SonarCloud.ServiceConnection)'
-    versionFile: '$(Carpenter.Version.VersionFile)'
+    #versionFile: '$(Carpenter.Version.VersionFile)'
     vmImage: '$(Carpenter.Build.VMImage)'
