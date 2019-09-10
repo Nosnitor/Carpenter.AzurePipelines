@@ -93,3 +93,9 @@ The following variables are used:
 | Carpenter.SonarCloud.ProjectKey | CARPENTER_SONARCLOUD_PROJECTKEY | sonarCloudProjectKey | | The SonarCloud project key used by the project. |
 | Carpenter.SonarCloud.ServiceConnection | CARPENTER_SONARCLOUD_SERVICECONNECTION | sonarCloudServiceConnection | | The Azure DevOps SonarCloud service connection. |
 | Carpenter.Version.VerisonFile | CARPENTER_VERSION_VERSIONFILE | versionFile | VERSION file in project root| The VERSION file to use for project versioning. |
+| Carpenter.Version.Major | CARPENTER_VERSION_MAJOR | | | The major portion of the SemVer build version. |
+| Carpenter.Version.Minor | CARPENTER_VERSION_MINOR | | | The minor portion of the SemVer build version. |
+| Carpenter.Version.Patch | CARPENTER_VERSION_PATCH | | | The patch portion of the SemVer build version. |
+| Carpenter.Version.Prefix | CARPENTER_VERSION_PREFIX | | {major}.{minor}.{patch} | The prefix portion of the SemVer build version. |
+| Carpenter.Version.Suffix | CARPENTER_VERSION_SUFFIX | | | The suffix portion of the SemVer build version. |
+| Carpenter.Version.PackageVersion | CARPENTER_VERSION_PACKAGEVERSION | | | The SemVer build version applied to packages. |
