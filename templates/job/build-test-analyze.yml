@@ -96,9 +96,11 @@ jobs:
       dotnet tool install -g dotnet-reportgenerator-globaltool
       reportgenerator -reports:**/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage "-reporttypes:Cobertura"
     displayName: Create code coverage report
+    continueOnError: true
 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
+    continueOnError: true
     inputs:
       codeCoverageTool: Cobertura
       summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
