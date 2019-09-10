@@ -55,9 +55,9 @@ jobs:
   - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
     displayName: 'Prepare analysis on SonarCloud'
     inputs:
-      SonarCloud: ${ variables['Nosnitor.SonarCloud.ServiceConnection'] }
-      organization: ${ variables['Nosnitor.SonarCloud.Organization'] }
-      projectKey: ${ variables['Nosnitor.SonarCloud.ProjectKey'] }
+      SonarCloud: $(Nosnitor.SonarCloud.ServiceConnection)
+      organization: $(Nosnitor.SonarCloud.Organization)
+      projectKey: $(Nosnitor.SonarCloud.ProjectKey)
       projectVersion: '$(Build.BuildNumber)'
       extraProperties: |
         sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/Carpenter.AzurePipelines.Tests/coverage.opencover.xml
@@ -69,14 +69,14 @@ jobs:
     displayName: 'Perform dotnet build'
     inputs:
       command: build
-      projects: ${ variables['Nosnitor.SolutionPath'] }
+      projects: $(Nosnitor.SolutionPath)
       arguments: '--configuration ${{ parameters.buildConfiguration }}'
 
   - task: DotNetCoreCLI@2
     displayName: 'Execute unit tests'
     inputs:
       command: test
-      projects: ${ variables['Nosnitor.SolutionPath'] }
+      projects: $(Nosnitor.SolutionPath)
       arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover"'
       nobuild: true
 
