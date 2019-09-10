@@ -30,11 +30,11 @@
 steps:
 - bash: |
     if [ ! -z "$CARPENTER_VERSION_SUFFIX" ]; then
-    VERSIONSUFFIX="$CARPENTER_VERSION_SUFFIX.$CARPENTER_VERSION_INCREMENT"
-    VERSIONSUFFIXSTRING="-$VERSIONSUFFIX"
+      VERSIONSUFFIX="$CARPENTER_VERSION_SUFFIX.$CARPENTER_VERSION_INCREMENT"
+      VERSIONSUFFIXSTRING="-$VERSIONSUFFIX"
     fi
     VERSIONSTRING="$CARPENTER_VERSION_MAJOR.$CARPENTER_VERSION_MINOR.$CARPENTER_VERSION_PATCH$VERSIONSUFFIXSTRING"
-    echo "##vso[task.setvariable variable=Carpenter.Version.VersionSuffix;isOutput=true]$VERSIONSUFFIX"
+    echo "##vso[task.setvariable variable=Carpenter.Version.Suffix;isOutput=true]$VERSIONSUFFIX"
     echo "##vso[task.setvariable variable=Carpenter.Version.PackageVersion;isOutput=true]$VERSIONSTRING"
     echo "##vso[build.updatebuildnumber]$VERSIONSTRING"
   displayName: Finalize build number

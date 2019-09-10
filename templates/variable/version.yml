@@ -31,5 +31,5 @@
     "Carpenter.Version.Minor" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Minor'] ]
     "Carpenter.Version.Patch" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Patch'] ]
     "Carpenter.Version.Prefix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Prefix'] ]
-    "Carpenter.Version.Suffix" : $[ dependencies.Prepare_Finalize.outputs['determineBuildNumber.Carpenter.Version.Suffix'] ]
-    "Carpenter.Version.PackageVersion" : $[ dependencies.Prepare_Finalize.outputs['determineBuildNumber.Carpenter.Version.PackageVersion'] ]
+    "Carpenter.Version.Suffix" : $[ dependencies.Prepare_Finalize.outputs['finalizeBuildNumber.Carpenter.Version.Suffix'] ]
+    "Carpenter.Version.PackageVersion" : $[ dependencies.Prepare_Finalize.outputs['finalizeBuildNumber.Carpenter.Version.PackageVersion'] ]

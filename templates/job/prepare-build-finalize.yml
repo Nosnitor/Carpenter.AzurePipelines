@@ -27,12 +27,6 @@
 # Finalizes preparation for a build.
 #
 parameters:
-  solutionName: ''
-  solutionPath: ''
-  sonarCloudOrganization: ''
-  sonarCloudProjectKey: ''
-  sonarCloudServiceConnection: ''
-  versionFile: ''
   vmImage: 'ubuntu-latest'
 
 jobs:

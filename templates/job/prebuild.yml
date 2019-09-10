@@ -53,10 +53,4 @@ jobs:
 
 - template: ../job/prepare-build-finalize.yml
   parameters:
-    solutionName: '${{ parameters.solutionName }}'
-    solutionPath: '${{ parameters.solutionPath }}'
-    sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
-    sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
-    sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
-    versionFile: '${{ parameters.versionFile }}'
     vmImage: '${{ parameters.vmImage }}'
