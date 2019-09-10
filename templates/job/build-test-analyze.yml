@@ -35,7 +35,9 @@ jobs:
 - job: Build
   displayName: 'Build, test, and analyze'
 
-  dependsOn: Prepare_Finalize
+  dependsOn:
+  - Prepare
+  - Prepare_Finalize
 
   pool:
     vmImage: ${{ parameters.vmImage }}
