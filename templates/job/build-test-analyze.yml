@@ -28,6 +28,7 @@
 #
 parameters:
   buildConfiguration: Release
+  buildPlatform: AnyCPU
   vmImage: 'ubuntu-latest'
 
 jobs:
@@ -63,9 +64,8 @@ jobs:
       projectVersion: '$(Build.BuildNumber)'
       extraProperties: |
         sonar.cs.opencover.reportsPaths=**/tests/**/coverage.opencover.xml
-        sonar.sources=$(Build.SourcesDirectory)/templates,$(Build.SourcesDirectory)/scripts
         sonar.test.exclusions=**/coverage.*.xml
-        sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
+        sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/*.trx
 
   - task: DotNetCoreCLI@2
     displayName: 'Perform dotnet build'
@@ -79,12 +79,22 @@ jobs:
     inputs:
       command: test
       projects: $(Carpenter.SolutionPath)
-      arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover"'
+      arguments: '--filter Category=UnitTest --logger trx --results-directory $(Build.SourcesDirectory)/TestResults --configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover"'
+      publishTestResults: false # manually publish later, we want trx results saved to specific location
       nobuild: true
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: TestResults/*.trx
+      testRunTitle: Carpenter.AzurePipelines L0 - Unit Tests
+      buildConfiguration: ${{ parameters.buildConfiguration }}
+      buildPlatform: ${{ parameters.buildPlatform }}
+      publishRunAttachments: true
 
   - script: |
       dotnet tool install -g dotnet-reportgenerator-globaltool
-      reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage "-reporttypes:Cobertura"
+      reportgenerator -reports:**/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage "-reporttypes:Cobertura"
     displayName: Create code coverage report
 
   - task: PublishCodeCoverageResults@1
