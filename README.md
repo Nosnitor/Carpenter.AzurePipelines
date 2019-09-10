@@ -84,10 +84,12 @@ The following variables are used:
 
 | Variable Name | Env Variable Name | Parameter Name | Default Value | Description |
 |:--|:--|:--|:--|:--|
+| Carpenter.Build.Enabled | CARPENTER_BUILD_ENABLED | buildEnabled | true, if solution exists | Should the build, test and analyze job be exectued?
 | Carpenter.Build.VMImage | CARPENTER_BUILD_VMIMAGE | vmImage | ubuntu-latest | The VM Image to use for build steps. |
 | Carpenter.SolutionName | CARPENTER_SOLUTIONNAME | solutionName | $(Build.DefinitionName) | The name of the solution. |
 | Carpenter.SolutionPath | CARPENTER_SOLUTIONPATH | solutionPath | $(Carpenter.SolutionName).sln | The path to the solution file. |
+| Carpenter.SonarCloud.Enabled | CARPENTER_SONARCLOUD_ENABLED | sonarCloudEnabled | true if other values present | Are SonarCloud steps enabled for the build, test, and analyze job?
 | Carpenter.SonarCloud.Organization | CARPENTER_SONARCLOUD_ORGANIZATION | sonarCloudOrganization | | The SonarCloud Organization that the project is under. |
 | Carpenter.SonarCloud.ProjectKey | CARPENTER_SONARCLOUD_PROJECTKEY | sonarCloudProjectKey | | The SonarCloud project key used by the project. |
 | Carpenter.SonarCloud.ServiceConnection | CARPENTER_SONARCLOUD_SERVICECONNECTION | sonarCloudServiceConnection | | The Azure DevOps SonarCloud service connection. |
-| Carpenter.Version.VerisonFile | CARPENTER_VERSION_VERSIONFILE | versionFile | | The VERSION file to use for project versioning. |
+| Carpenter.Version.VerisonFile | CARPENTER_VERSION_VERSIONFILE | versionFile | VERSION file in project root| The VERSION file to use for project versioning. |

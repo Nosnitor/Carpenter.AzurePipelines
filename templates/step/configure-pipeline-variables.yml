@@ -28,8 +28,10 @@
 #
 
 parameters:
+  buildEnabled: ''
   solutionName: ''
   solutionPath: ''
+  sonarCloudEnabled: ''
   sonarCloudOrganization: ''
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
@@ -62,7 +64,7 @@ steps:
       CURRENTSOLUTIONNAME=${{ parameters.solutionName }}
     fi
     if [ "$CURRENTSOLUTIONNAME" != "$CARPENTER_SOLUTIONNAME" ]; then
-        echo "configure-pipeline-variables.yml: info: Updating Carpenter.SolutionName, Value=$CARPENTER_SOLUTIONNAME, NewValue=$CURRENTSOLUTIONNAME"
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.SolutionName, Value=$CARPENTER_SOLUTIONNAME, NewValue=$CURRENTSOLUTIONNAME"
     fi
     echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]$CURRENTSOLUTIONNAME"
 
@@ -73,11 +75,75 @@ steps:
       CURRENTSOLUTIONPATH=${{ parameters.solutionPath }}
     fi
     if [ "$CURRENTSOLUTIONPATH" != "$CARPENTER_SOLUTIONPATH" ]; then
-        echo "configure-pipeline-variables.yml: info: Updating Carpenter.SolutionPath, Value=$CARPENTER_SOLUTIONPATH, NewValue=$CURRENTSOLUTIONPATH"
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.SolutionPath, Value=$CARPENTER_SOLUTIONPATH, NewValue=$CURRENTSOLUTIONPATH"
     fi
     echo "##vso[task.setvariable variable=Carpenter.SolutionName;isOutput=true]$CURRENTSOLUTIONPATH"
 
-    echo "##vso[task.setvariable variable=Carpenter.SonarQube.ProjectKey;isOutput=true]${{ parameters.sonarQubeProjectKey }}"
-    echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]${{ parameters.versionFile }}"
+    # buildEnabled
+    if [ "${{ parameters.buildEnabled }}" == "" ]; then
+      if [[ -f "$CURRENTSOLUTIONPATH" ]]; then
+        CURRENTBUILDENABLED=true
+      else
+        CURRENTBUILDENABLED=false
+      fi
+    else
+      CURRENTBUILDENABLED=${{ parameters.buildEnabled }}
+    fi
+    if [ "$CURRENTBUILDENABLED" != "$CARPENTER_BUILD_ENABLED" ]; then
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.Build.Enabled, Value=$CARPENTER_BUILD_ENABLED, NewValue=$CURRENTBUILDENABLED"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.Build.Enabled;isOutput=true]$CURRENTBUILDENABLED"
+
+    # sonarCloudOrganization
+    CURRENTSONARCLOUDORGANIZATION=$CARPENTER_SONARCLOUD_ORGANIZATION
+    if [ "${{ parameters.sonarCloudOrganization }}" != "$CURRENTSONARCLOUDORGANIZATION" ]; then
+      CURRENTSONARCLOUDORGANIZATION=${{ parameters.sonarCloudOrganization }}
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.SonarCloud.Organization, Value=$CARPENTER_SONARCLOUD_ORGANIZATION, NewValue=$CURRENTSONARCLOUDORGANIZATION"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.SonarCloud.Organization;isOutput=true]$CURRENTSONARCLOUDORGANIZATION"
+
+    # sonarCloudProjectKey
+    CURRENTSONARCLOUDPROJECTKEY=$CARPENTER_SONARCLOUD_PROJECTKEY
+    if [ "${{ parameters.sonarCloudProjectKey }}" != "$CURRENTSONARCLOUDPROJECTKEY" ]; then
+      CURRENTSONARCLOUDPROJECTKEY=${{ parameters.sonarCloudProjectKey }}
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.SonarCloud.ProjectKey, Value=$CARPENTER_SONARCLOUD_PROJECTKEY, NewValue=$CURRENTSONARCLOUDPROJECTKEY"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.SonarCloud.ProjectKey;isOutput=true]$CURRENTSONARCLOUDPROJECTKEY"
+
+    # sonarCloudServiceConnection
+    CURRENTSONARCLOUDSERVICECONNECTION=$CARPENTER_SONARCLOUD_SERVICECONNECTION
+    if [ "${{ parameters.sonarCloudServiceConnection }}" != "$CURRENTSONARCLOUDSERVICECONNECTION" ]; then
+      CURRENTSONARCLOUDSERVICECONNECTION=${{ parameters.sonarCloudServiceConnection }}
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.SonarCloud.ServiceConnection, Value=$CARPENTER_SONARCLOUD_SERVICECONNECTION, NewValue=$CURRENTSONARCLOUDSERVICECONNECTION"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.SonarCloud.ServiceConnection;isOutput=true]$CURRENTSONARCLOUDSERVICECONNECTION"
+    
+    # sonarCloudEnabled
+    if [ "${{ parameters.sonarCloudEnabled }}" == "" ]; then
+      if [ "$CURRENTSONARCLOUDORGANIZATION" != "" ] && [ "$CURRENTSONARCLOUDPROJECTKEY" != "" ] && [ "$CURRENTSONARCLOUDSERVICECONNECTION" != "" ]; then
+        CURRENTSONARCLOUDENABLED=true
+      else
+        CURRENTSONARCLOUDENABLED=false
+      fi
+    else
+      CURRENTSONARCLOUDENABLED=${{ parameters.sonarCloudEnabled }}
+    fi
+    if [ "$CURRENTSONARCLOUDENABLED" != "$CARPENTER_SONARCLOUD_ENABLED" ]; then
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.SonarCloud.Enabled, Value=$CARPENTER_SONARCLOUD_ENABLED, NewValue=$CURRENTSONARCLOUDENABLED"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.SonarCloud.Enabled;isOutput=true]$CURRENTSONARCLOUDENABLED"
+
+    # verisonFile
+    CURRENTVERSIONFILE=${{ parameters.versionFile }}
+    if [ "$CURRENTVERSIONFILE" == "" ]; then
+      if [[ -f "$BUILD_SOURCESDIRECTORY/VERSION" ]]
+        CURRENTVERSIONFILE=$BUILD_SOURCESDIRECTORY/VERSION
+      fi
+    fi
+    if [ "$CURRENTVERSIONFILE" != "$CARPENTER_VERSION_VERSIONFILE" ]; then
+      echo "configure-pipeline-variables.yml: info: Updating Carpenter.Version.VersionFile, Value=$CARPENTER_VERSION_VERSIONFILE, NewValue=$CURRENTVERSIONFILE"
+    fi
+    echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]$CURRENTVERSIONFILE"
+
   displayName: Configure pipeline variables
   name: configureVariables

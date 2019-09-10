@@ -28,8 +28,10 @@
 #
 
 parameters:
+  buildEnabled: ''
   solutionName: ''
   solutionPath: ''
+  sonarCloudEnabled: ''
   sonarCloudOrganization: ''
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
@@ -39,8 +41,10 @@ parameters:
 stages:
 - template: build-test-analyze.yml
   parameters:
+    buildEnabled: '${{ parameters.buildEnabled }}'
     solutionName: '${{ parameters.solutionName }}'
     solutionPath: '${{ parameters.solutionPath }}'
+    sonarCloudEnabled: '${{ parameters.sonarCloudEnabled }}'
     sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
     sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
     sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'

@@ -27,8 +27,10 @@
 # Performs preparation for a build.
 #
 parameters:
+  buildEnabled: ''
   solutionName: ''
   solutionPath: ''
+  sonarCloudEnabled: ''
   sonarCloudOrganization: ''
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
@@ -49,8 +51,10 @@ jobs:
 
   - template: ../step/configure-pipeline-variables.yml
     parameters:
+      buildEnabled: '${{ parameters.buildEnabled }}'
       solutionName: '${{ parameters.solutionName }}'
       solutionPath: '${{ parameters.solutionPath }}'
+      sonarCloudEnabled: '${{ parameters.sonarCloudEnabled }}'
       sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
       sonarCloudProjectKey: '${{ parameters.sonarQubeProjectKey }}'
       sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'

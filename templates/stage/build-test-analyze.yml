@@ -28,8 +28,10 @@
 #
 
 parameters:
+  buildEnabled: ''
   solutionName: ''
   solutionPath: ''
+  sonarCloudEnabled: ''
   sonarCloudOrganization: ''
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
@@ -43,8 +45,10 @@ stages:
   jobs:
   - template: ../job/prebuild.yml
     parameters:
+      buildEnabled: '${{ parameters.buildEnabled }}'
       solutionName: '${{ parameters.solutionName }}'
       solutionPath: '${{ parameters.solutionPath }}'
+      sonarCloudEnabled: '${{ parameters.sonarCloudEnabled }}'
       sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
       sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
       sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
