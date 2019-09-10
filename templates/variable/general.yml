@@ -24,32 +24,15 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Finalizes preparation for a build.
+# Variables used by Carpenter.AzurePipelines
 #
-parameters:
-  solutionName: ''
-  solutionPath: ''
-  sonarCloudOrganization: ''
-  sonarCloudProjectKey: ''
-  sonarCloudServiceConnection: ''
-  versionFile: ''
-  vmImage: 'ubuntu-latest'
-
-jobs:
-- job: Prepare_Finalize
-  displayName: Finalize build preparation
-
-  dependsOn: Prepare
-
-  pool:
-    vmImage: ${{ parameters.vmImage }}
-  
   variables:
-  - template: ../variable/general.yml
-  - template: ../variable/version-prepare.yml
-  - name: "Carpenter.Version.Increment"
-    value: $[ counter(variables['Carpenter.Version.PackageVersion'], 1) ]
-
-  steps:
-  - template: ../step/display-variables.yml
-  - template: ../step/finalize-build-number.yml
+    "Carpenter.Build.Enabled" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Build.Enabled'] ]
+    "Carpenter.Build.VMImage" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Build.VMImage'] ]
+    "Carpenter.SolutionName" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SolutionName'] ]
+    "Carpenter.SolutionPath" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SolutionPath'] ]
+    "Carpenter.SonarCloud.Enabled" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.Enabled'] ]
+    "Carpenter.SonarCloud.Organization" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.Organization'] ]
+    "Carpenter.SonarCloud.ProjectKey" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.ProjectKey'] ]
+    "Carpenter.SonarCloud.ServiceConnection" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.ServiceConnection'] ]
+    "Carpenter.Version.VersionFile" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Version.VersionFile'] ]

@@ -24,32 +24,12 @@
 # SPDX-License-Identifier: MIT
 
 #
-# Finalizes preparation for a build.
+# Versioning variables determined in prepare-build-finalize
 #
-parameters:
-  solutionName: ''
-  solutionPath: ''
-  sonarCloudOrganization: ''
-  sonarCloudProjectKey: ''
-  sonarCloudServiceConnection: ''
-  versionFile: ''
-  vmImage: 'ubuntu-latest'
-
-jobs:
-- job: Prepare_Finalize
-  displayName: Finalize build preparation
-
-  dependsOn: Prepare
-
-  pool:
-    vmImage: ${{ parameters.vmImage }}
-  
   variables:
-  - template: ../variable/general.yml
-  - template: ../variable/version-prepare.yml
-  - name: "Carpenter.Version.Increment"
-    value: $[ counter(variables['Carpenter.Version.PackageVersion'], 1) ]
-
-  steps:
-  - template: ../step/display-variables.yml
-  - template: ../step/finalize-build-number.yml
+    "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
+    "Carpenter.Version.Minor" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Minor'] ]
+    "Carpenter.Version.Patch" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Patch'] ]
+    "Carpenter.Version.Prefix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Prefix'] ]
+    "Carpenter.Version.Suffix" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Suffix'] ]
+    "Carpenter.Version.PackageVersion" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.PackageVersion'] ]
