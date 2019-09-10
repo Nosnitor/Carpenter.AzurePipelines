@@ -33,7 +33,7 @@
     "Carpenter.SolutionPath" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SolutionPath'] ]
     "Carpenter.SonarCloud.Enabled" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.Enabled'] ]
     "Carpenter.SonarCloud.Organization" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.Organization'] ]
-    "Carpenter.SonarCloud.ProjectKey" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.Enabled'] ]
+    "Carpenter.SonarCloud.ProjectKey" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.ProjectKey'] ]
     "Carpenter.SonarCloud.ServiceConnection" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.ServiceConnection'] ]
     "Carpenter.Version.VersionFile" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Version.VersionFile'] ]
     "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
