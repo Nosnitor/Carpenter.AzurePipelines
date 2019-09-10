@@ -59,8 +59,8 @@ jobs:
     displayName: 'Prepare analysis on SonarCloud'
     inputs:
       SonarCloud: $(Carpenter.SonarCloud.ServiceConnection)
-      organization: ${{ variables.Carpenter.SonarCloud.Organization }}
-      projectKey: ${{ variables.Carpenter.SonarCloud.ProjectKey }}
+      organization: $(Carpenter.SonarCloud.Organization)
+      projectKey: $(Carpenter.SonarCloud.ProjectKey)
       projectVersion: '$(Build.BuildNumber)'
       extraProperties: |
         sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/Carpenter.AzurePipelines.Tests/coverage.opencover.xml
