@@ -72,7 +72,7 @@ stages:
   parameters:
     #buildEnabled: true
     solutionName: '$(Carpenter.SolutionName)'
-    solutionPath: '$(Carpenter.SolutionPath)'
+    #solutionPath: '$(Carpenter.SolutionPath)'
     #sonarCloudEnabled: true
     sonarCloudOrganization: '$(Carpenter.SonarCloud.Organization)'
     sonarCloudProjectKey: '$(Carpenter.SonarCloud.ProjectKey)'

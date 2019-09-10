@@ -57,8 +57,4 @@ stages:
 
   - template: ../job/build-test-analyze.yml
     parameters:
-      solutionPath: '${{ parameters.solutionPath }}'
-      sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
-      sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
-      sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
       vmImage: '${{ parameters.vmImage }}'
