@@ -143,6 +143,7 @@ steps:
     if [ "$CURRENTVERSIONFILE" != "$CARPENTER_VERSION_VERSIONFILE" ]; then
       echo "configure-pipeline-variables.yml: info: Updating Carpenter.Version.VersionFile, Value=$CARPENTER_VERSION_VERSIONFILE, NewValue=$CURRENTVERSIONFILE"
     fi
+    echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;]$CURRENTVERSIONFILE"
     echo "##vso[task.setvariable variable=Carpenter.Version.VersionFile;isOutput=true]$CURRENTVERSIONFILE"
 
   displayName: Configure pipeline variables
