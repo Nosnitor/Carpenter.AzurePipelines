@@ -36,10 +36,10 @@ variables:
     "Carpenter.SolutionName": 'Carpenter.AzurePipelines'
 
     # The path to the solution file.
-    "Carpenter.SolutionPath": '$(Carpenter.SolutionName).sln'
+    #"Carpenter.SolutionPath": '$(Carpenter.SolutionName).sln'
 
     # Should the build/test/analyze step execute? Default: true if solution exists
-    # "Carpenter.Build.Enabled": true
+    #"Carpenter.Build.Enabled": true
 
     # The Organization this project is under in SonarCloud.
     "Carpenter.SonarCloud.Organization": 'nosnitor'
