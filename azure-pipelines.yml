@@ -54,7 +54,7 @@ variables:
     #"Carpenter.SonarCloud.Enabled": true
 
     # The location of the VERSION file used to version this build.
-    "Carpenter.Version.VersionFile": VERSION
+    #"Carpenter.Version.VersionFile": VERSION
 
 
 # Default name for the build, prior to build versioning
