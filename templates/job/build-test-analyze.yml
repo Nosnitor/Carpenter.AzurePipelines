@@ -28,7 +28,6 @@
 #
 parameters:
   buildConfiguration: Release
-  sonarCloudServiceConnection: ''
   vmImage: 'ubuntu-latest'
 
 jobs:
