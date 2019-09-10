@@ -57,4 +57,5 @@ stages:
 
   - template: ../job/build-test-analyze.yml
     parameters:
+      sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
       vmImage: '${{ parameters.vmImage }}'
