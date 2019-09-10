@@ -56,7 +56,7 @@ jobs:
       solutionPath: '${{ parameters.solutionPath }}'
       sonarCloudEnabled: '${{ parameters.sonarCloudEnabled }}'
       sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
-      sonarCloudProjectKey: '${{ parameters.sonarQubeProjectKey }}'
+      sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
       sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
       versionFile: '${{ parameters.versionFile }}'
       vmImage: '${{ parameters.vmImage }}'
