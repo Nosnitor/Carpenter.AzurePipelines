@@ -74,6 +74,9 @@ jobs:
       projects: $(Carpenter.SolutionPath)
       arguments: '--configuration ${{ parameters.buildConfiguration }}'
 
+  - publish: **/src/**/bin/*
+    artifact: binaries
+
   - task: DotNetCoreCLI@2
     displayName: 'Execute unit tests'
     inputs:
