@@ -5,9 +5,11 @@
     <AssemblyName>Nosnitor.Carpenter.AzurePipelines</AssemblyName>
     <RootNamespace>Nosnitor.Carpenter.AzurePipelines</RootNamespace>
     <PackageId>Carpenter.AzurePipelines</PackageId>
-    <Title>Carpenter.AzurePipelines</Title>
+    <Title>Carpenter AzurePipelines Templates</Title>
+    <AssemblyTitle>Carpenter AzurePipelines Library</AssemblyTitle>
     <Description>Common YAML templates and scripts for Azure Pipelines definitions.</Description>
     <Product>Carpenter</Product>
+    <Copyright>Copyright © 2015-2019 Nosnitor Corporation</Copyright>
     <VersionSuffix>dev</VersionSuffix>
     <Company>Nosnitor Corporation</Company>
     <PackageIcon>Carpenter-Icon_128x128.png</PackageIcon>
