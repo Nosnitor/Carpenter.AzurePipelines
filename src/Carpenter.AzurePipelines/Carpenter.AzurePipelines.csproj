@@ -4,14 +4,27 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Nosnitor.Carpenter.AzurePipelines</AssemblyName>
     <RootNamespace>Nosnitor.Carpenter.AzurePipelines</RootNamespace>
+    <PackageId>Carpenter.AzurePipelines</PackageId>
+    <Title>Carpenter.AzurePipelines</Title>
+    <Description>Common YAML templates and scripts for Azure Pipelines definitions.</Description>
+    <Product>Carpenter</Product>
     <VersionSuffix>dev</VersionSuffix>
+    <Company>Nosnitor Corporation</Company>
+    <PackageIcon>Carpenter-Icon_128x128.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/Nosnitor/Carpenter/master/media/Carpenter-Icon_128x128.png</PackageIconUrl>
+    <Authors>Jeff Block</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Nosnitor/Carpenter.AzurePipelines</PackageProjectUrl>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Carpenter.AzurePipelines.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\..\azure-pipelines.yml" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\..\templates\**" LinkBase="templates" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="..\..\templates\step\recreate-carpenter-symlinks.yml" />
+    <None Include="..\..\media\Carpenter-Icon_128x128.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <Content Include="..\..\azure-pipelines.yml" CopyToOutputDirectory="PreserveNewest" PackagePath="contentFiles\any\any\templates" />
+    <Content Include="..\..\templates\**" LinkBase="templates" CopyToOutputDirectory="PreserveNewest" PackagePath="contentFiles\any\any\templates" />
   </ItemGroup>
 
 </Project>
