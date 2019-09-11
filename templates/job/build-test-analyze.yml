@@ -34,6 +34,7 @@ parameters:
 jobs:
 - job: Build
   displayName: 'Build, test, and analyze'
+  condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true')
 
   dependsOn:
   - Prepare
