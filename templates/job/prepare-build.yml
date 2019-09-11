@@ -47,8 +47,6 @@ jobs:
   steps:
   - template: ../step/display-variables.yml
 
-  - template: ../step/recreate-carpenter-symlinks.yml
-
   - template: ../step/configure-pipeline-variables.yml
     parameters:
       buildEnabled: '${{ parameters.buildEnabled }}'
