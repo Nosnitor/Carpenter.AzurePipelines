@@ -75,10 +75,29 @@ jobs:
     inputs:
       command: build
       projects: '$(Carpenter.SolutionPath)'
-      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }} --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion=$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion)'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }} --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion=$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion) /p:GeneratePackageOnBuild=true'
+
+  - task: CopyFiles@2
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      sourceFolder: $(System.DefaultWorkingDirectory)/out/bin
+      contents: '*.nupkg'
+      targetFolder: $(System.DefaultWorkingDirectory)/out/nuget
+
+  - task: DeleteFiles@1
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      sourceFolder: $(System.DefaultWorkingDirectory)/out/bin
+      contents: '*.nupkg'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/bin'
+    displayName: 'Publish binaries artifact'
     artifact: binaries
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+
+  - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
+    displayName: 'Publish nuget artifact'
+    artifact: package.nuget
     condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
 
   - task: DotNetCoreCLI@2
@@ -123,15 +142,3 @@ jobs:
   - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
     displayName: 'Publish Quality Gate Result'
     condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Create nuget package'
-    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
-    inputs:
-      command: custom
-      custom: pack
-      arguments: '$(Carpenter.SolutionPath) --verbosity diag --no-build --output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion=$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion)'
-
-  - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
-    artifact: package.nuget
-    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
