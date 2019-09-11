@@ -83,14 +83,14 @@ jobs:
     inputs:
       command: test
       projects: $(Carpenter.SolutionPath)
-      arguments: '--filter Category=UnitTest --logger trx --results-directory $(Build.SourcesDirectory)/TestResults --configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover"'
+      arguments: '--filter Category=UnitTest --logger trx --results-directory $(System.DefaultWorkingDirectory)/out/tests --configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover"'
       publishTestResults: false # manually publish later, we want trx results saved to specific location
       nobuild: true
 
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'VSTest'
-      testResultsFiles: TestResults/*.trx
+      testResultsFiles: $(System.DefaultWorkingDirectory)/out/tests/*.trx
       testRunTitle: Carpenter.AzurePipelines L0 - Unit Tests
       buildConfiguration: ${{ parameters.buildConfiguration }}
       buildPlatform: ${{ parameters.buildPlatform }}
