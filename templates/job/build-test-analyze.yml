@@ -130,7 +130,7 @@ jobs:
     inputs:
       command: custom
       custom: pack
-      arguments: '$(Carpenter.SolutionPath) --no-build --output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion=$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion)'
+      arguments: '$(Carpenter.SolutionPath) --verbosity diag --no-build --output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion=$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion)'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
     artifact: package.nuget
