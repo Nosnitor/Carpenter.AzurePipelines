@@ -70,10 +70,10 @@ trigger:
 stages:
 - template: templates/stage/carpenter-default.yml
   parameters:
-    buildEnabled: false
+    #buildEnabled: true
     solutionName: '$(Carpenter.SolutionName)'
     #solutionPath: '$(Carpenter.SolutionPath)'
-    #sonarCloudEnabled: true
+    sonarCloudEnabled: false
     sonarCloudOrganization: '$(Carpenter.SonarCloud.Organization)'
     sonarCloudProjectKey: '$(Carpenter.SonarCloud.ProjectKey)'
     sonarCloudServiceConnection: '$(Carpenter.SonarCloud.ServiceConnection)'
