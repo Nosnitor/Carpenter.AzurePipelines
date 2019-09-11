@@ -117,10 +117,9 @@ jobs:
   - task: DotNetCoreCLI@2
     displayName: 'Create nuget package'
     inputs:
-      command: pack
-      projects: $(Carpenter.SolutionPath)
-      arguments: '--output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin'
-      nobuild: true
+      command: custom
+      custom: pack
+      arguments: '$(Carpenter.SolutionPath) --no-build --output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
     artifact: package.nuget
