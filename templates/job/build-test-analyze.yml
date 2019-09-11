@@ -119,8 +119,7 @@ jobs:
     inputs:
       command: pack
       projects: $(Carpenter.SolutionPath)
-      outputDir: '$(System.DefaultWorkingDirectory)/out/nuget'
-      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }}'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin'
       nobuild: true
 
   - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
