@@ -72,6 +72,11 @@ The following variables are used:
 | Carpenter.Version.Major | CARPENTER_VERSION_MAJOR | | | The major portion of the SemVer build version. |
 | Carpenter.Version.Minor | CARPENTER_VERSION_MINOR | | | The minor portion of the SemVer build version. |
 | Carpenter.Version.Patch | CARPENTER_VERSION_PATCH | | | The patch portion of the SemVer build version. |
+| Carpenter.Version.Revision | CARPENTER_VERSION_REVISION | | | The revision portion of the File version. |
 | Carpenter.Version.Prefix | CARPENTER_VERSION_PREFIX | | {major}.{minor}.{patch} | The prefix portion of the SemVer build version. |
 | Carpenter.Version.Suffix | CARPENTER_VERSION_SUFFIX | | | The suffix portion of the SemVer build version. |
+| Carpenter.Version.Increment | CARPENTER_VERSION_INCREMENT | | | The increment portion of pre-release builds. |
+| Carpenter.Version.AssemblyVersion | CARPENTER_VERSION_ASSEMBLYVERSION | | | The AssemblyVersion used for assemblies. |
+| Carpenter.Version.FileVersion | CARPENTER_VERSION_FILEVERSION | | | The FileVersion used for assemblies. |
+| Carpenter.Version.InformationalVersion | CARPENTER_VERSION_INFORMATIONALVERSION | | | The InformationalVersion used for assemblies. |
 | Carpenter.Version.PackageVersion | CARPENTER_VERSION_PACKAGEVERSION | | | The SemVer build version applied to packages. |

@@ -41,7 +41,12 @@ steps:
     echo "Carpenter.Version.Major                : $CARPENTER_VERSION_MAJOR"
     echo "Carpenter.Version.Minor                : $CARPENTER_VERSION_MINOR"
     echo "Carpenter.Version.Patch                : $CARPENTER_VERSION_PATCH"
+    echo "Carpenter.Version.Revision             : $CARPENTER_VERSION_REVISION"
     echo "Carpenter.Version.Prefix               : $CARPENTER_VERSION_PREFIX"
     echo "Carpenter.Version.Suffix               : $CARPENTER_VERSION_SUFFIX"
+    echo "Carpenter.Version.Increment            : $CARPENTER_VERSION_INCREMENT"
+    echo "Carpenter.Version.AssemblyVersion      : $CARPENTER_VERSION_ASSEMBLYVERSION"
+    echo "Carpenter.Version.FileVersion          : $CARPENTER_VERSION_FILEVERSION"
+    echo "Carpenter.Version.InformationalVersion : $CARPENTER_VERSION_INFORMATIONALVERSION"
     echo "Carpenter.Version.PackageVersion       : $CARPENTER_VERSION_PACKAGEVERSION"
   displayName: Display carpenter variables

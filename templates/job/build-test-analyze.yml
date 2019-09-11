@@ -72,7 +72,7 @@ jobs:
     inputs:
       command: build
       projects: '$(Carpenter.SolutionPath)'
-      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }}'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }} --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion:$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion)'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/bin'
     artifact: binaries

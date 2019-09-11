@@ -33,8 +33,16 @@ steps:
       VERSIONSUFFIX="$CARPENTER_VERSION_SUFFIX.$CARPENTER_VERSION_INCREMENT"
       VERSIONSUFFIXSTRING="-$VERSIONSUFFIX"
     fi
-    VERSIONSTRING="$CARPENTER_VERSION_MAJOR.$CARPENTER_VERSION_MINOR.$CARPENTER_VERSION_PATCH$VERSIONSUFFIXSTRING"
+    VERSIONSTRING="$CARPENTER_VERSION_PREFIX$VERSIONSUFFIXSTRING"
+    ASSEMBLYVERSION="$CARPENTER_VERSION_MAJOR.0.0.0"
+    FILEVERSION="$CARPENTER_VERSION_PREFIX.$CARPENTER_VERSION_REVISION"
+
+    echo "##vso[task.setvariable variable=Carpenter.Version.Revision;isOutput=true]$CARPENTER_VERSION_REVISION"
     echo "##vso[task.setvariable variable=Carpenter.Version.Suffix;isOutput=true]$VERSIONSUFFIX"
+    echo "##vso[task.setvariable variable=Carpenter.Version.Increment;isOutput=true]$CARPENTER_VERSION_INCREMENT"
+    echo "##vso[task.setvariable variable=Carpenter.Version.AssemblyVersion;isOutput=true]$ASSEMBLYVERSION"
+    echo "##vso[task.setvariable variable=Carpenter.Version.FileVersion;isOutput=true]$FILEVERSION"
+    echo "##vso[task.setvariable variable=Carpenter.Version.InformationalVersion;isOutput=true]$VERSIONSTRING"
     echo "##vso[task.setvariable variable=Carpenter.Version.PackageVersion;isOutput=true]$VERSIONSTRING"
     echo "##vso[build.updatebuildnumber]$VERSIONSTRING"
   displayName: Finalize build number

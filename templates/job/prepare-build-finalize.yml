@@ -43,6 +43,8 @@ jobs:
   - template: ../variable/version-prepare.yml
   - name: "Carpenter.Version.Increment"
     value: $[ counter(variables['Carpenter.Version.PackageVersion'], 1) ]
+  - name: "Carpenter.Version.Revision"
+    value: $[ counter(variables['Carpenter.SolutionName'], 0) ]
 
   steps:
   - template: ../step/display-variables.yml
