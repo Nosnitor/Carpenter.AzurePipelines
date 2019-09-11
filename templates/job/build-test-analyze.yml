@@ -72,8 +72,7 @@ jobs:
     inputs:
       command: build
       projects: '$(Carpenter.SolutionPath)'
-      outputDir: '$(System.DefaultWorkingDirectory)/out/bin'
-      arguments: '--configuration ${{ parameters.buildConfiguration }}'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }}'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/bin'
     artifact: binaries
