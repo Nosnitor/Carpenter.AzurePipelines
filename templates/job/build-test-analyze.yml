@@ -65,16 +65,16 @@ jobs:
       extraProperties: |
         sonar.cs.opencover.reportsPaths=**/tests/**/coverage.opencover.xml
         sonar.test.exclusions=**/coverage.*.xml
-        sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/*.trx
+        sonar.cs.vstest.reportsPaths=$(System.DefaultWorkingDirectory)/out/tests/*.trx
 
   - task: DotNetCoreCLI@2
     displayName: 'Perform dotnet build'
     inputs:
       command: build
       projects: $(Carpenter.SolutionPath)
-      arguments: '--configuration ${{ parameters.buildConfiguration }}'
+      arguments: '--outputPath "$(System.DefaultWorkingDirectory)/out/bin" --configuration ${{ parameters.buildConfiguration }}'
 
-  - publish: '**/src/**/bin/*'
+  - publish: '$(System.DefaultWorkingDirectory)/out/bin'
     artifact: binaries
 
   - task: DotNetCoreCLI@2
