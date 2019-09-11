@@ -1,0 +1,144 @@
+#    Carpenter.AzurePipelines
+#    Common YAML templates and scripts for Azure Pipelines definitions.
+#
+#    Copyright © 2015-2019 Nosnitor Corporation, All rights reserved.
+#
+#    Permission is hereby granted, free of charge, to any person obtaining a copy
+#    of this software and associated documentation files (the "Software"), to deal
+#    in the Software without restriction, including without limitation the rights
+#    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#    copies of the Software, and to permit persons to whom the Software is
+#    furnished to do so, subject to the following conditions:
+#
+#    The above copyright notice and this permission notice shall be included in all
+#    copies or substantial portions of the Software.
+#
+#    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#    SOFTWARE.
+
+# SPDX-License-Identifier: MIT
+
+#
+# Builds, tests and analyzes the solution.
+#
+parameters:
+  buildConfiguration: Release
+  buildPlatform: AnyCPU
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: Build
+  displayName: 'Build, test, and analyze'
+
+  dependsOn:
+  - Prepare
+  - Prepare_Finalize
+
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+
+  variables:
+  - template: ../variable/carpenter-variables.yml
+
+  steps:
+  - template: ../step/display-variables.yml
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core sdk'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      packageType: sdk
+      version: 2.x
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+    displayName: 'Prepare analysis on SonarCloud'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))
+    inputs:
+      SonarCloud: $(Carpenter.SonarCloud.ServiceConnection)
+      organization: $(Carpenter.SonarCloud.Organization)
+      projectKey: $(Carpenter.SonarCloud.ProjectKey)
+      projectVersion: '$(Build.BuildNumber)'
+      extraProperties: |
+        sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/out/tests/coverage.opencover.xml
+        sonar.test.exclusions=**/coverage.*.xml
+        sonar.cs.vstest.reportsPaths=$(System.DefaultWorkingDirectory)/out/tests/*.trx
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Perform dotnet build'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      command: build
+      projects: '$(Carpenter.SolutionPath)'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }} --version-suffix "$(Carpenter.Version.Suffix)" /p:VersionPrefix=$(Carpenter.Version.Prefix) /p:Version=$(Carpenter.Version.PackageVersion) /p:AssemblyVersion=$(Carpenter.Version.AssemblyVersion) /p:FileVersion=$(Carpenter.Version.FileVersion) /p:InformationalVersion=$(Carpenter.Version.InformationalVersion) /p:PackageVersion=$(Carpenter.Version.PackageVersion) /p:GeneratePackageOnBuild=true'
+
+  - task: CopyFiles@2
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      sourceFolder: $(System.DefaultWorkingDirectory)/out/bin
+      contents: '*.nupkg'
+      targetFolder: $(System.DefaultWorkingDirectory)/out/nuget
+
+  - task: DeleteFiles@1
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      sourceFolder: $(System.DefaultWorkingDirectory)/out/bin
+      contents: '*.nupkg'
+
+  - publish: '$(System.DefaultWorkingDirectory)/out/bin'
+    displayName: 'Publish binaries artifact'
+    artifact: binaries
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+
+  - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
+    displayName: 'Publish nuget artifact'
+    artifact: package.nuget
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Execute unit tests'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      command: test
+      projects: $(Carpenter.SolutionPath)
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --filter Category=UnitTest --logger trx --results-directory $(System.DefaultWorkingDirectory)/out/tests --configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=$(System.DefaultWorkingDirectory)/out/tests/ /p:CoverletOutputFormat="cobertura%2copencover"'
+      publishTestResults: false # manually publish later, we want trx results saved to specific location
+      nobuild: true
+
+  - task: PublishTestResults@2
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: $(System.DefaultWorkingDirectory)/out/tests/*.trx
+      testRunTitle: Carpenter.AzurePipelines L0 - Unit Tests
+      buildConfiguration: ${{ parameters.buildConfiguration }}
+      buildPlatform: ${{ parameters.buildPlatform }}
+      publishRunAttachments: true
+
+  - script: |
+      dotnet tool install -g dotnet-reportgenerator-globaltool
+      reportgenerator -reports:$(System.DefaultWorkingDirectory)/out/tests/coverage.cobertura.xml -targetdir:$(System.DefaultWorkingDirectory)/out/testCoverage "-reporttypes:Cobertura"
+    displayName: Create code coverage report
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    continueOnError: true
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
+    continueOnError: true
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/out/testCoverage/Cobertura.xml'
+
+  - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+    displayName: 'Run Code Analysis'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))
+    
+  - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+    displayName: 'Publish Quality Gate Result'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))

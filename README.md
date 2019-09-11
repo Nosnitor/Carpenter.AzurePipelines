@@ -2,8 +2,11 @@
 [Nosnitor](https://rcsit.com)
 
 [![Build Status](https://dev.azure.com/nosnitor/Carpenter/_apis/build/status/Nosnitor.Carpenter.AzurePipelines?branchName=master)](https://dev.azure.com/nosnitor/Carpenter/_build/latest?definitionId=61&branchName=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Nosnitor_Carpenter.AzurePipelines&metric=alert_status)](https://sonarcloud.io/dashboard?id=Nosnitor_Carpenter.AzurePipelines)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Nosnitor_Carpenter.AzurePipelines&metric=coverage)](https://sonarcloud.io/dashboard?id=Nosnitor_Carpenter.AzurePipelines)
 
-# Introduction
+
+# Carpenter.AzurePipelines
 
 The Carpenter.AzurePipelines project provides common YAML templates and scripts for Azure
 Pipelines definitions.

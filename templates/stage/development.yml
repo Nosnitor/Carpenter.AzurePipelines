@@ -39,22 +39,10 @@ parameters:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: Build_Test_Analyze
-  displayName: "Build, Test and Analyze"
+- stage: Deploy_Development
+  displayName: "Development"
 
   jobs:
-  - template: ../job/prebuild.yml
-    parameters:
-      buildEnabled: '${{ parameters.buildEnabled }}'
-      solutionName: '${{ parameters.solutionName }}'
-      solutionPath: '${{ parameters.solutionPath }}'
-      sonarCloudEnabled: '${{ parameters.sonarCloudEnabled }}'
-      sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
-      sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
-      sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
-      versionFile: '${{ parameters.versionFile }}'
-      vmImage: '${{ parameters.vmImage }}'
-
-  - template: ../job/build-test-analyze.yml
+  - template: ../job/deploy-development.yml
     parameters:
       vmImage: '${{ parameters.vmImage }}'
