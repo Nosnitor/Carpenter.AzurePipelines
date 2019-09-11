@@ -55,7 +55,7 @@ stages:
       versionFile: '${{ parameters.versionFile }}'
       vmImage: '${{ parameters.vmImage }}'
 
-  - ${{ if eq(variables['Carpenter.Build.Enabled'], 'true') }}
+  - ${{ if eq(variables['Carpenter.Build.Enabled'], 'true') }}:
     - template: ../job/build-test-analyze.yml
       parameters:
         sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
