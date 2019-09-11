@@ -71,8 +71,9 @@ jobs:
     displayName: 'Perform dotnet build'
     inputs:
       command: build
-      projects: $(Carpenter.SolutionPath)
-      arguments: '--outputPath "$(System.DefaultWorkingDirectory)/out/bin" --configuration ${{ parameters.buildConfiguration }}'
+      projects: '$(Carpenter.SolutionPath)'
+      outputDir: '$(System.DefaultWorkingDirectory)/out/bin'
+      arguments: '--configuration ${{ parameters.buildConfiguration }}'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/bin'
     artifact: binaries
