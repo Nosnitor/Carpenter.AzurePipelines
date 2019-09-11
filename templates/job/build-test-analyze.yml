@@ -119,7 +119,7 @@ jobs:
     inputs:
       command: custom
       custom: pack
-      arguments: '$(Carpenter.SolutionPath) --no-build --output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin'
+      arguments: '$(Carpenter.SolutionPath) --no-build --output $(System.DefaultWorkingDirectory)/out/nuget --configuration ${{ parameters.buildConfiguration }} /p:OutputPath=$(System.DefaultWorkingDirectory)/out/bin /p:PackageVersion=$(Carpenter.Version.PackageVersion)'
 
   - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
     artifact: package.nuget
