@@ -1,3 +1,4 @@
+![Carpenter](media/Carpenter-SocialCard.png)
 [Nosnitor](https://rcsit.com)
 
 [![Build Status](https://dev.azure.com/nosnitor/Carpenter/_apis/build/status/Nosnitor.Carpenter.AzurePipelines?branchName=master)](https://dev.azure.com/nosnitor/Carpenter/_build/latest?definitionId=61&branchName=master)
