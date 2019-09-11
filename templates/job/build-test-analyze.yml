@@ -34,7 +34,6 @@ parameters:
 jobs:
 - job: Build
   displayName: 'Build, test, and analyze'
-  condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
 
   dependsOn:
   - Prepare
@@ -51,6 +50,7 @@ jobs:
 
   - task: UseDotNet@2
     displayName: 'Use .Net Core sdk'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     inputs:
       packageType: sdk
       version: 2.x
@@ -58,6 +58,7 @@ jobs:
 
   - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
     displayName: 'Prepare analysis on SonarCloud'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))
     inputs:
       SonarCloud: $(Carpenter.SonarCloud.ServiceConnection)
       organization: $(Carpenter.SonarCloud.Organization)
@@ -70,6 +71,7 @@ jobs:
 
   - task: DotNetCoreCLI@2
     displayName: 'Perform dotnet build'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     inputs:
       command: build
       projects: '$(Carpenter.SolutionPath)'
@@ -77,9 +79,11 @@ jobs:
 
   - publish: '$(System.DefaultWorkingDirectory)/out/bin'
     artifact: binaries
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
 
   - task: DotNetCoreCLI@2
     displayName: 'Execute unit tests'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     inputs:
       command: test
       projects: $(Carpenter.SolutionPath)
@@ -88,6 +92,7 @@ jobs:
       nobuild: true
 
   - task: PublishTestResults@2
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     inputs:
       testResultsFormat: 'VSTest'
       testResultsFiles: $(System.DefaultWorkingDirectory)/out/tests/*.trx
@@ -100,10 +105,12 @@ jobs:
       dotnet tool install -g dotnet-reportgenerator-globaltool
       reportgenerator -reports:$(System.DefaultWorkingDirectory)/out/tests/coverage.cobertura.xml -targetdir:$(System.DefaultWorkingDirectory)/out/testCoverage "-reporttypes:Cobertura"
     displayName: Create code coverage report
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     continueOnError: true
 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     continueOnError: true
     inputs:
       codeCoverageTool: Cobertura
@@ -111,12 +118,15 @@ jobs:
 
   - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
     displayName: 'Run Code Analysis'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))
     
   - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
     displayName: 'Publish Quality Gate Result'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'), eq(variables['Carpenter.SonarCloud.Enabled'], 'true'))
 
   - task: DotNetCoreCLI@2
     displayName: 'Create nuget package'
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
     inputs:
       command: custom
       custom: pack
@@ -124,3 +134,4 @@ jobs:
 
   - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
     artifact: package.nuget
+    condition: and(succeeded(), eq(variables['Carpenter.Build.Enabled'], 'true'))
