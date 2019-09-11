@@ -82,7 +82,7 @@ jobs:
     inputs:
       command: test
       projects: $(Carpenter.SolutionPath)
-      arguments: '--filter Category=UnitTest --logger trx --results-directory $(System.DefaultWorkingDirectory)/out/tests --configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=$(System.DefaultWorkingDirectory)/out/tests/ /p:CoverletOutputFormat="cobertura%2copencover"'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --filter Category=UnitTest --logger trx --results-directory $(System.DefaultWorkingDirectory)/out/tests --configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutput=$(System.DefaultWorkingDirectory)/out/tests/ /p:CoverletOutputFormat="cobertura%2copencover"'
       publishTestResults: false # manually publish later, we want trx results saved to specific location
       nobuild: true
 
@@ -113,3 +113,15 @@ jobs:
     
   - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
     displayName: 'Publish Quality Gate Result'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Create nuget package'
+    inputs:
+      command: pack
+      projects: $(Carpenter.SolutionPath)
+      outputDir: '$(System.DefaultWorkingDirectory)/out/nuget'
+      arguments: '--output $(System.DefaultWorkingDirectory)/out/bin --configuration ${{ parameters.buildConfiguration }}'
+      nobuild: true
+
+  - publish: '$(System.DefaultWorkingDirectory)/out/nuget'
+    artifact: package.nuget
