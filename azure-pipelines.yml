@@ -67,6 +67,12 @@ trigger:
     include:
     - master
 
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - master
+
 stages:
 - template: templates/stage/carpenter-default.yml
   parameters:
