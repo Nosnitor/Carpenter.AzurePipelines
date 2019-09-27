@@ -31,7 +31,7 @@ parameters:
 
 jobs:
 - job: Prepare_Finalize
-  displayName: Finalize build preparation
+  displayName: 0b Finalize build preparation
 
   dependsOn: Prepare
 

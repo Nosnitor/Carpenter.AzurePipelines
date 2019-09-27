@@ -40,7 +40,7 @@ parameters:
 
 stages:
 - stage: Build_Test_Analyze
-  displayName: "Build, Test and Analyze"
+  displayName: "Development"
 
   jobs:
   - template: ../job/prebuild.yml

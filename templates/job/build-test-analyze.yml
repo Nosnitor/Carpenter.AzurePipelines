@@ -33,7 +33,7 @@ parameters:
 
 jobs:
 - job: Build
-  displayName: 'Build, test, and analyze'
+  displayName: '0c Build, test, and analyze'
 
   dependsOn:
   - Prepare

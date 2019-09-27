@@ -39,7 +39,7 @@ parameters:
 
 jobs:
 - job: Prepare
-  displayName: Prepare for build
+  displayName: 0a Prepare for build
 
   pool:
     vmImage: ${{ parameters.vmImage }}
