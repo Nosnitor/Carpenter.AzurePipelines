@@ -5,7 +5,8 @@
 [![Build Status](https://dev.azure.com/nosnitor/Carpenter/_apis/build/status/Nosnitor.Carpenter.AzurePipelines?branchName=master)](https://dev.azure.com/nosnitor/Carpenter/_build/latest?definitionId=61&branchName=master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Nosnitor_Carpenter.AzurePipelines&metric=alert_status)](https://sonarcloud.io/dashboard?id=Nosnitor_Carpenter.AzurePipelines)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Nosnitor_Carpenter.AzurePipelines&metric=coverage)](https://sonarcloud.io/dashboard?id=Nosnitor_Carpenter.AzurePipelines)
-
+![Deployment](https://vsrm.dev.azure.com/nosnitor/_apis/public/Release/badge/7e342f2c-9b69-45df-8ef7-b8ad9e3388c5/1/6) 
+[![Carpenter.AzurePipelines package at NuGet.org](https://feeds.dev.azure.com/nosnitor/_apis/public/Packaging/Feeds/ce90d72e-2e21-479e-a251-735363b85cb7/Packages/63bdcfda-244d-4ae6-9b8d-30b9db95f814/Badge)](https://www.nuget.org/packages/Carpenter.AzurePipelines/)
 
 # Carpenter.AzurePipelines
 
