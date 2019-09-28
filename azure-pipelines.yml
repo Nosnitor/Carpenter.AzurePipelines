@@ -66,12 +66,14 @@ trigger:
   branches:
     include:
     - master
+    - prerelease/*
 
 pr:
   autoCancel: true
   branches:
     include:
     - master
+    - prerelease/*
 
 stages:
 - template: templates/stage/carpenter-default.yml
