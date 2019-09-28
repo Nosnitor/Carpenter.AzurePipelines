@@ -22,7 +22,8 @@ build and any binaries or packages generated as output.
 
 | Build type | Version example | Description
 |:--|:--|:--|
-| Continuous Integration | 1.2.3-CI.20190906.42 | The 42nd CI build on September 6, 2019 for version 1.2.3.
+| Continuous Integration | 1.2.3-CI.20190906.42 | The 42nd CI build on September 6, 2019 for version 1.2.3. |
+| Pull Request | 1.2.3-PR.5.2 | The 2nd build executed by PR #5. |
 
 ### Display Build Variables
 
