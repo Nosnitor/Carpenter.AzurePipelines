@@ -39,6 +39,7 @@ steps:
     echo "Carpenter.SonarCloud.ProjectKey        : $CARPENTER_SONARCLOUD_PROJECTKEY"
     echo "Carpenter.SonarCloud.ServiceConnection : $CARPENTER_SONARCLOUD_SERVICECONNECTION"
     echo "Carpenter.Version.VersionFile          : $CARPENTER_VERSION_VERSIONFILE"
+    echo "Carpenter.Version.PrereleaseFile       : $CARPENTER_VERSION_PRERELEASEFILE"
     echo "Carpenter.Version.Major                : $CARPENTER_VERSION_MAJOR"
     echo "Carpenter.Version.Minor                : $CARPENTER_VERSION_MINOR"
     echo "Carpenter.Version.Patch                : $CARPENTER_VERSION_PATCH"
