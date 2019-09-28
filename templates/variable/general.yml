@@ -36,3 +36,4 @@
     "Carpenter.SonarCloud.ProjectKey" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.ProjectKey'] ]
     "Carpenter.SonarCloud.ServiceConnection" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.SonarCloud.ServiceConnection'] ]
     "Carpenter.Version.VersionFile" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Version.VersionFile'] ]
+    "Carpenter.Version.PrereleaseFile" : $[ dependencies.Prepare.outputs['configureVariables.Carpenter.Version.PrereleaseFile'] ]
