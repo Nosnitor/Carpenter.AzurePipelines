@@ -66,9 +66,9 @@ steps:
             CARPENTER_BUILDTYPE=PR
         elif [[ $BUILD_SOURCEBRANCH == *"release/"* ]]; then
             if [ -z "$CARPENTER_VERSION_PRERELEASEFILE" ]; then
-                CARPENTER_BUILDTYPE=Prerelease
-            else
                 CARPENTER_BUILDTYPE=Release
+            else
+                CARPENTER_BUILDTYPE=Prerelease
             fi
         else
             CARPENTER_BUILDTYPE=CI
