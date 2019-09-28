@@ -60,9 +60,13 @@ steps:
 
     # determine build type
 
-    # default to CI build if not defined
+    # default to CI build if not defined, or cannot be determined
     if [ -z "$CARPENTER_BUILDTYPE" ]; then
-        CARPENTER_BUILDTYPE=CI
+        if [ "$BUILD_REASON" == "PullRequest" ]; then
+            CARPENTER_BUILDTYPE=PR
+        else
+            CARPENTER_BUILDTYPE=CI
+        fi
     fi
 
     case "$CARPENTER_BUILDTYPE" in
@@ -70,6 +74,9 @@ steps:
         CI)
             printf -v DATESTRING '%(%Y%m%d)T'
             VERSIONSUFFIX=CI.$DATESTRING
+            ;;
+        PR)
+            VERSIONSUFFIX=PR.$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
             ;;
         *)
             echo "##vso[task.logissue type=error;]Carpenter.BuildType (CARPENTER_BUILDTYPE) contains an unknown build type. BuildType: $CARPENTER_BUILDTYPE"
