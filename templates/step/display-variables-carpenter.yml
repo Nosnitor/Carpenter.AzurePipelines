@@ -31,6 +31,7 @@ steps:
 - bash: |
     echo "Carpenter.Build.Enabled                : $CARPENTER_BUILD_ENABLED"
     echo "Carpenter.Build.VMImage                : $CARPENTER_BUILD_VMIMAGE"
+    echo "Carpenter.BuildType                    : $CARPENTER_BUILDTYPE"
     echo "Carpenter.SolutionName                 : $CARPENTER_SOLUTIONNAME"
     echo "Carpenter.SolutionPath                 : $CARPENTER_SOLUTIONPATH"
     echo "Carpenter.SonarCloud.Enabled           : $CARPENTER_SONARCLOUD_ENABLED"

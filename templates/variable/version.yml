@@ -27,6 +27,7 @@
 # Versioning variables determined in prepare-build
 #
   variables:
+    "Carpenter.BuildType" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.BuildType'] ]
     "Carpenter.Version.Major" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Major'] ]
     "Carpenter.Version.Minor" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Minor'] ]
     "Carpenter.Version.Patch" : $[ dependencies.Prepare.outputs['determineBuildNumber.Carpenter.Version.Patch'] ]
