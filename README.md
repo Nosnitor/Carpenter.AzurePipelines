@@ -22,8 +22,10 @@ build and any binaries or packages generated as output.
 
 | Build type | Version example | Description
 |:--|:--|:--|
-| Continuous Integration | 1.2.3-CI.20190906.42 | The 42nd CI build on September 6, 2019 for version 1.2.3. |
 | Pull Request | 1.2.3-PR.5.2 | The 2nd build executed by PR #5. |
+| Continuous Integration | 1.2.3-CI.20190906.42 | The 42nd CI build on September 6, 2019 for version 1.2.3. |
+| Prerelease | 1.2.3-beta.4 | The 4th beta of version 1.2.3. Enabled if build is triggered on ```release/*``` branch and a ```PRERELEASE``` file has been defined.|
+| Release | 1.2.3 | Version 1.2.3. Enabled if build is triggered on ```release/*``` branch when a ```PRERELEASE``` file has not been defined. |
 
 ### Display Build Variables
 

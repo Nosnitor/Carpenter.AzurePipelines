@@ -44,7 +44,11 @@ steps:
     echo "##vso[task.setvariable variable=Carpenter.Version.FileVersion;isOutput=true]$FILEVERSION"
     echo "##vso[task.setvariable variable=Carpenter.Version.InformationalVersion;isOutput=true]$VERSIONSTRING"
     echo "##vso[task.setvariable variable=Carpenter.Version.PackageVersion;isOutput=true]$VERSIONSTRING"
-    echo "##vso[build.updatebuildnumber]$VERSIONSTRING"
+    if [ "$CARPENTER_BUILDTYPE" == "Release" ]; then
+        echo "##vso[build.updatebuildnumber]$VERSIONSTRING.$CARPENTER_VERSION_REVISION"
+    else
+        echo "##vso[build.updatebuildnumber]$VERSIONSTRING"
+    fi
     echo "##vso[build.addbuildtag]$CARPENTER_BUILDTYPE"
   displayName: Finalize build number
   name: finalizeBuildNumber
