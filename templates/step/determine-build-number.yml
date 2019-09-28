@@ -64,20 +64,45 @@ steps:
     if [ -z "$CARPENTER_BUILDTYPE" ]; then
         if [ "$BUILD_REASON" == "PullRequest" ]; then
             CARPENTER_BUILDTYPE=PR
+        elif [[ $BUILD_SOURCEBRANCH == *"prerelease/"* ]]; then
+            CARPENTER_BUILDTYPE=Prerelease
         else
             CARPENTER_BUILDTYPE=CI
         fi
     fi
 
     case "$CARPENTER_BUILDTYPE" in
+        # pull request build
+        PR)
+            VERSIONSUFFIX=PR.$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+            ;;
+
         # continuous integration build
         CI)
             printf -v DATESTRING '%(%Y%m%d)T'
             VERSIONSUFFIX=CI.$DATESTRING
             ;;
-        PR)
-            VERSIONSUFFIX=PR.$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-            ;;
+
+        # prerelease build
+        Prerelease)
+            # get prerelease suffix from PRERELEASE file
+            if [ -z "$CARPENTER_VERSION_PRERELEASEFILE" ]; then
+                echo "##vso[task.logissue type=warning;]Carpenter.Version.PrereleaseFile (CARPENTER_VERSION_PRERELEASEFILE) variable has not been defined. Using 'alpha'."
+                echo "##vso[task.complete result=SucceededWithIssues;]Carpenter.Version.PrereleaseFile (CARPENTER_VERSION_PRERELEASEFILE) variable has not been defined."
+                PRERELEASESUFFIX=alpha
+            else
+                PRERELEASEFILEPATH=$BUILD_SOURCESDIRECTORY/$CARPENTER_VERSION_PRERELEASEFILE
+                if [[ -f "$PRERELEASEFILEPATH" ]]; then
+                    echo "Using PRERELEASE file $PRERELEASEFILEPATH"
+                    PRERELEASESTRING=`cat $PRERELEASEFILEPATH`
+                else
+                    echo "##vso[task.logissue type=error;]Could not locate prerelease file. File not found: $PRERELEASEFILEPATH"
+                    echo "##vso[task.complete result=Failed;]Could not locate prerelease file."
+                fi
+            fi
+          VERSIONSUFFIX=$PRERELEASESTRING
+          ;;
+
         *)
             echo "##vso[task.logissue type=error;]Carpenter.BuildType (CARPENTER_BUILDTYPE) contains an unknown build type. BuildType: $CARPENTER_BUILDTYPE"
             echo "##vso[task.complete result=Failed;]Carpenter.BuildType (CARPENTER_BUILDTYPE) contains an unknown build type."
