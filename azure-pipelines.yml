@@ -56,6 +56,9 @@ variables:
     # The location of the VERSION file used to version this build.
     #"Carpenter.Version.VersionFile": VERSION
 
+    # The location of the PRERELEASE file used to version this build.
+    #"Carpenter.Version.PrereleaseFile": PRERELEASE
+
 
 # Default name for the build, prior to build versioning
 # $(Build.BuildId) is the default value used when YAML cannot be parsed
@@ -86,4 +89,5 @@ stages:
     sonarCloudProjectKey: '$(Carpenter.SonarCloud.ProjectKey)'
     sonarCloudServiceConnection: '$(Carpenter.SonarCloud.ServiceConnection)'
     #versionFile: '$(Carpenter.Version.VersionFile)'
+    #prereleaseFile: '$(Carpenter.Version.PrereleaseFile)'
     vmImage: '$(Carpenter.Build.VMImage)'

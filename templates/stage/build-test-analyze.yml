@@ -36,6 +36,7 @@ parameters:
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
   versionFile: ''
+  prereleaseFile: ''
   vmImage: 'ubuntu-latest'
 
 stages:
@@ -53,6 +54,7 @@ stages:
       sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
       sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
       versionFile: '${{ parameters.versionFile }}'
+      prereleaseFile: '${{ parameters.prereleaseFile }}'
       vmImage: '${{ parameters.vmImage }}'
 
   - template: ../job/build-test-analyze.yml

@@ -36,6 +36,7 @@ parameters:
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
   versionFile: ''
+  prereleaseFile: ''
   vmImage: 'ubuntu-latest'
 
 stages:
@@ -48,5 +49,6 @@ stages:
     sonarCloudOrganization: '${{ parameters.sonarCloudOrganization }}'
     sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
     sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
+    prereleaseFile: '${{ parameters.prereleaseFile }}'
     versionFile: '${{ parameters.versionFile }}'
     vmImage: '${{ parameters.vmImage }}'

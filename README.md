@@ -68,6 +68,7 @@ The following variables are used:
 |:--|:--|:--|:--|:--|
 | Carpenter.Build.Enabled | CARPENTER_BUILD_ENABLED | buildEnabled | true, if solution exists | Should the build, test and analyze job be exectued?
 | Carpenter.Build.VMImage | CARPENTER_BUILD_VMIMAGE | vmImage | ubuntu-latest | The VM Image to use for build steps. |
+| Carpenter.BuildType | CARPENTER_BUILDTYPE | | | The type of build being performed. (e.g. PR, CI, Prerelease, Release) |
 | Carpenter.SolutionName | CARPENTER_SOLUTIONNAME | solutionName | $(Build.DefinitionName) | The name of the solution. |
 | Carpenter.SolutionPath | CARPENTER_SOLUTIONPATH | solutionPath | $(Carpenter.SolutionName).sln | The path to the solution file. |
 | Carpenter.SonarCloud.Enabled | CARPENTER_SONARCLOUD_ENABLED | sonarCloudEnabled | true if other values present | Are SonarCloud steps enabled for the build, test, and analyze job?
@@ -75,6 +76,7 @@ The following variables are used:
 | Carpenter.SonarCloud.ProjectKey | CARPENTER_SONARCLOUD_PROJECTKEY | sonarCloudProjectKey | | The SonarCloud project key used by the project. |
 | Carpenter.SonarCloud.ServiceConnection | CARPENTER_SONARCLOUD_SERVICECONNECTION | sonarCloudServiceConnection | | The Azure DevOps SonarCloud service connection. |
 | Carpenter.Version.VerisonFile | CARPENTER_VERSION_VERSIONFILE | versionFile | VERSION file in project root| The VERSION file to use for project versioning. |
+| Carpenter.Version.PrerleaseFile | CARPENTER_VERSION_PRERELEASEFILE | prereleaseFile | PRERELEASE file in project root | The PRERELEASE file used to label prerelease versions. |
 | Carpenter.Version.Major | CARPENTER_VERSION_MAJOR | | | The major portion of the SemVer build version. |
 | Carpenter.Version.Minor | CARPENTER_VERSION_MINOR | | | The minor portion of the SemVer build version. |
 | Carpenter.Version.Patch | CARPENTER_VERSION_PATCH | | | The patch portion of the SemVer build version. |

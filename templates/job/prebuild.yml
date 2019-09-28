@@ -36,6 +36,7 @@ parameters:
   sonarCloudProjectKey: ''
   sonarCloudServiceConnection: ''
   versionFile: ''
+  prereleaseFile: ''
   vmImage: 'ubuntu-latest'
 
 jobs:
@@ -49,6 +50,7 @@ jobs:
     sonarCloudProjectKey: '${{ parameters.sonarCloudProjectKey }}'
     sonarCloudServiceConnection: '${{ parameters.sonarCloudServiceConnection }}'
     versionFile: '${{ parameters.versionFile }}'
+    prereleaseFile: '${{ parameters.prereleaseFile }}'
     vmImage: '${{ parameters.vmImage }}'
 
 - template: ../job/prepare-build-finalize.yml
